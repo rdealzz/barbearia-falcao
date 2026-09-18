@@ -2,15 +2,15 @@ import { CalendarRange } from 'lucide-react';
 import { EmptyState } from '@/components/ui/empty-state';
 import { Avatar } from '@/components/ui/avatar';
 import { StatusBadge } from '@/components/shared/status-badge';
-import { requireRole } from '@/lib/auth/current-user';
+import { requireStaff } from '@/lib/auth/current-user';
 import { db } from '@/services';
 import { addDays, rangeOfDays, startOfWeek, todayDateString, WEEKDAY_SHORT, weekdayOf } from '@/lib/utils/date';
 import { parseDateString } from '@/lib/utils/format';
 import type { Weekday } from '@/types';
 
 export default async function StaffWeekPage() {
-  const user = await requireRole('barber');
-  const barberId = user.barberId!;
+  const user = await requireStaff();
+  const barberId = user.barberId;
 
   const today = todayDateString();
   const weekStart = startOfWeek(today);
@@ -88,10 +88,14 @@ export default async function StaffWeekPage() {
                           className="rounded-2xl bg-tint p-3 transition-colors hover:bg-tint-strong"
                         >
                           <div className="flex items-center gap-2">
-                            <Avatar name={client?.name ?? 'Cliente'} src={client?.avatarUrl} size="sm" />
+                            <Avatar
+                              name={appointment.manualClientName ?? client?.name ?? 'Cliente'}
+                              src={client?.avatarUrl}
+                              size="sm"
+                            />
                             <div className="min-w-0 flex-1">
                               <p className="truncate text-sm text-content">
-                                {client?.name ?? 'Cliente'}
+                                {appointment.manualClientName ?? client?.name ?? 'Cliente'}
                               </p>
                               <p className="text-xs text-muted">
                                 {appointment.startTime} · {service?.name}

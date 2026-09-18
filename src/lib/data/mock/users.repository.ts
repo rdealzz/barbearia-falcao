@@ -5,6 +5,20 @@ import { nextId, store, timestamp } from '../store';
 const normalizeEmail = (email: string) => email.trim().toLowerCase();
 
 export const mockUserRepository: UserRepository = {
+  async list({ role, search } = {}) {
+    const term = search?.trim().toLowerCase();
+    return store.users
+      .filter((user) => (!role || user.role === role))
+      .filter(
+        (user) =>
+          !term ||
+          user.name.toLowerCase().includes(term) ||
+          user.email.toLowerCase().includes(term) ||
+          user.phone.replace(/\D/g, '').includes(term.replace(/\D/g, '')),
+      )
+      .sort((a, b) => a.name.localeCompare(b.name, 'pt-BR'));
+  },
+
   async findById(id) {
     return store.users.find((user) => user.id === id) ?? null;
   },

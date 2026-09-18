@@ -18,13 +18,31 @@ export const mockBarberRepository: BarberRepository = {
     return store.barbers.find((barber) => barber.slug === slug) ?? null;
   },
 
-  async listTimeOff(barberId) {
-    return store.timeOff.filter((entry) => entry.barberId === barberId);
+  async listTimeOff(barberId, { from, to } = {}) {
+    return store.timeOff
+      .filter(
+        (entry) =>
+          entry.barberId === barberId &&
+          (!to || entry.start <= to) &&
+          (!from || entry.end >= from),
+      )
+      .sort((a, b) => `${a.start}${a.startTime ?? ''}`.localeCompare(`${b.start}${b.startTime ?? ''}`));
+  },
+
+  async findTimeOffById(id) {
+    return store.timeOff.find((entry) => entry.id === id) ?? null;
   },
 
   async createTimeOff(input) {
     const entry = { ...input, id: nextId('off') };
     store.timeOff.push(entry);
     return entry;
+  },
+
+  async deleteTimeOff(id) {
+    const index = store.timeOff.findIndex((entry) => entry.id === id);
+    if (index < 0) return false;
+    store.timeOff.splice(index, 1);
+    return true;
   },
 };

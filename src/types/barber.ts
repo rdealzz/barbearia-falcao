@@ -1,4 +1,5 @@
 import type { DateString, ID, TimeString, Timestamped } from './common';
+import type { StaffRole } from './user';
 
 export type Weekday = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 
@@ -41,6 +42,8 @@ export interface Barber extends Timestamped {
   name: string;
   nickname?: string;
   role: string;
+  /** Nível de acesso ao painel: chefe (dono) ou funcionário. */
+  staffRole: StaffRole;
   bio: string;
   headline: string;
   avatarUrl: string;

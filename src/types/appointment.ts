@@ -33,6 +33,10 @@ export interface Appointment extends Timestamped {
   priceInCents: number;
   payment: AppointmentPayment;
   notes?: string;
+  /** Reserva lançada pelo próprio barbeiro no painel (encaixe, cliente de balcão). */
+  isManual?: boolean;
+  /** Nome informado pelo barbeiro numa reserva manual, quando não há cadastro. */
+  manualClientName?: string;
   /** Quando o atendimento é consumido por uma assinatura. */
   subscriptionId?: ID;
   cancelledAt?: string;
@@ -52,11 +56,14 @@ export interface AvailabilityDay {
 }
 
 export interface CreateAppointmentInput {
+  /** Vazio numa reserva manual sem cliente cadastrado. */
   clientId: ID;
   barberId: ID;
   serviceId: ID;
   date: DateString;
   startTime: TimeString;
   notes?: string;
-  paymentMethod?: import('./appointment').PaymentMethod;
+  paymentMethod?: PaymentMethod;
+  isManual?: boolean;
+  manualClientName?: string;
 }

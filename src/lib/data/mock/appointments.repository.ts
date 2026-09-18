@@ -21,6 +21,8 @@ export const mockAppointmentRepository: AppointmentRepository = {
         amountInCents: input.priceInCents,
       },
       notes: input.notes,
+      isManual: input.isManual ?? false,
+      manualClientName: input.manualClientName,
       createdAt: timestamp(),
       updatedAt: timestamp(),
     };
@@ -53,6 +55,12 @@ export const mockAppointmentRepository: AppointmentRepository = {
   async listByBarberAndDate(barberId, date) {
     return store.appointments
       .filter((appointment) => appointment.barberId === barberId && appointment.date === date)
+      .sort((a, b) => a.startTime.localeCompare(b.startTime));
+  },
+
+  async listByDate(date) {
+    return store.appointments
+      .filter((appointment) => appointment.date === date)
       .sort((a, b) => a.startTime.localeCompare(b.startTime));
   },
 

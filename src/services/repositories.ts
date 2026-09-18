@@ -12,6 +12,7 @@ import type {
   SubscriptionInvoice,
   TimeOff,
   User,
+  UserRole,
 } from '@/types';
 
 /**
@@ -30,8 +31,10 @@ export interface BarberRepository {
   list(options?: { onlyActive?: boolean; serviceId?: ID }): Promise<Barber[]>;
   findById(id: ID): Promise<Barber | null>;
   findBySlug(slug: string): Promise<Barber | null>;
-  listTimeOff(barberId: ID): Promise<TimeOff[]>;
+  listTimeOff(barberId: ID, options?: { from?: DateString; to?: DateString }): Promise<TimeOff[]>;
+  findTimeOffById(id: ID): Promise<TimeOff | null>;
   createTimeOff(input: Omit<TimeOff, 'id'>): Promise<TimeOff>;
+  deleteTimeOff(id: ID): Promise<boolean>;
 }
 
 export interface AppointmentRepository {
@@ -40,11 +43,14 @@ export interface AppointmentRepository {
   listByClient(clientId: ID): Promise<Appointment[]>;
   listByBarber(barberId: ID, options?: { from?: DateString; to?: DateString }): Promise<Appointment[]>;
   listByBarberAndDate(barberId: ID, date: DateString): Promise<Appointment[]>;
+  /** Agenda da casa inteira num dia — visão do barbeiro-chefe. */
+  listByDate(date: DateString): Promise<Appointment[]>;
   updateStatus(id: ID, status: AppointmentStatus, reason?: string): Promise<Appointment | null>;
   update(id: ID, patch: Partial<Appointment>): Promise<Appointment | null>;
 }
 
 export interface UserRepository {
+  list(options?: { role?: UserRole; search?: string }): Promise<User[]>;
   findById(id: ID): Promise<User | null>;
   findByEmail(email: string): Promise<User | null>;
   findManyByIds(ids: ID[]): Promise<User[]>;

@@ -30,11 +30,42 @@ Scripts disponíveis:
 
 O provider padrão é `mock`, com dados em memória recriados a cada boot do servidor.
 
-| Perfil | E-mail | Senha |
+| Perfil | E-mail | Senha | Acesso |
+| --- | --- | --- | --- |
+| Cliente | `cliente@falcao.com` | `falcao123` | Área do cliente (`/conta`) |
+| **Barbeiro-chefe (dono)** | `barbeiro@falcao.com` | `falcao123` | Painel completo: agenda, equipe e base de clientes |
+| **Barbeiro funcionário** | `lucas@falcao.com` | `falcao123` | Painel da própria agenda |
+
+## Painel da equipe: dois níveis de acesso
+
+O painel (`/painel`) tem dois perfis, definidos por `staffRole` no usuário e no
+barbeiro (`owner` | `barber`). Quem decide o que cada um vê é
+`src/lib/auth/permissions.ts` — um único ponto de verdade, espelhado no banco
+pela função `barbearia.is_owner()`.
+
+| Rota | Barbeiro funcionário | Barbeiro-chefe |
 | --- | --- | --- |
-| Cliente | `cliente@falcao.com` | `falcao123` |
-| Barbeiro | `barbeiro@falcao.com` | `falcao123` |
-| Barbeiro | `lucas@falcao.com` | `falcao123` |
+| `/painel` — agenda do dia | ✅ | ✅ |
+| `/painel/agenda` — controle de horários | ✅ (a própria) | ✅ (de qualquer barbeiro) |
+| `/painel/semana` — visão semanal | ✅ | ✅ |
+| `/painel/equipe` — a casa inteira no dia | — | ✅ |
+| `/painel/clientes` — base de clientes | — | ✅ |
+
+O bloqueio é de rota, não só de menu: um funcionário que digitar
+`/painel/clientes` cai de volta na própria agenda, e passar `?barbeiro=` de
+outro profissional não abre a agenda alheia.
+
+### Controle de horários (`/painel/agenda`)
+
+A grade mostra o dia inteiro do barbeiro — livre, marcado, bloqueado e o que já
+passou — com **quem marcou cada horário**. A partir dela o barbeiro:
+
+- **bloqueia** um horário, que some da grade pública de agendamento na hora;
+- **libera** de volta um horário bloqueado;
+- **marca como já ocupado** (encaixe combinado por WhatsApp ou cliente de balcão,
+  sem cadastro no site);
+- ajusta a jornada do dia com os atalhos **chego às…**, **saio às…** e
+  **não atendo hoje** — a rotina real de chegar mais tarde ou sair antes.
 
 ## Arquitetura
 
@@ -143,9 +174,9 @@ trocados pelos profissionais reais antes do lançamento.
 
 O código já tem o formato certo para receber cada item abaixo:
 
-- **Supabase / PostgreSQL / Prisma** — `prisma/schema.prisma` espelha os contratos,
+- **Prisma / PostgreSQL** — `prisma/schema.prisma` espelha os contratos,
   incluindo índice único `(barbeiro, data, horário)` que impede overbooking no banco.
-  Ative implementando os repositórios e trocando `DATA_PROVIDER`.
+  Continua como plano B; o caminho ativo hoje é o Supabase (seção acima).
 - **ASAAS** — assinaturas, ciclos, uso por período, faturas e `WebhookEvent` já modelados;
   `subscribeToPlanAction` é o ponto de entrada da cobrança recorrente.
 - **WhatsApp** — componente flutuante pronto; basta definir `NEXT_PUBLIC_WHATSAPP_NUMBER`.
@@ -154,6 +185,52 @@ O código já tem o formato certo para receber cada item abaixo:
 - **Google Calendar, push, login social, dashboard admin, financeiro, fidelidade,
   cupons, cashback, avaliações, loja e relatórios** — acomodados pela separação
   `features/ + services/ + types/`, sem necessidade de reescrita.
+
+## Banco de dados no Supabase
+
+O projeto do Supabase é **compartilhado com outra aplicação**, então a Barbearia
+Falcão tem um **schema dedicado** — `barbearia` — em vez de dividir a `public`.
+Isolamento total: tabelas, tipos e funções próprias, sem colidir com nada.
+
+```
+projeto Supabase (compartilhado)
+├── public      → outra aplicação
+└── barbearia   → esta aplicação
+    ├── services, barbers, plans, club_coupons      (catálogo, leitura pública)
+    ├── profiles                                    (clientes + equipe, com staff_role)
+    ├── appointments                                (agendamentos, inclusive reservas manuais)
+    ├── time_off                                    (bloqueios e ajustes de jornada)
+    └── subscriptions, subscription_invoices, coupon_redemptions
+```
+
+Decisões que valem registrar:
+
+- **RLS ligado em tudo.** Só o catálogo (serviços, barbeiros, planos, cupons) tem
+  política de leitura pública. Agenda, clientes e assinaturas não têm política
+  nenhuma: ninguém lê pela API pública, apenas o servidor com a service role.
+- **Senhas com `pgcrypto`.** Ficam como hash bcrypt em `profiles.password_hash`;
+  `barbearia.verify_password(email, senha)` confere sem nunca devolver o hash.
+- **`staff_role`** separa o barbeiro-chefe do funcionário, igual ao app.
+- **Horário e data separados** (`date` + `start_time`/`end_time`), com
+  `constraint` garantindo fim depois do início.
+
+### Ativando o Supabase
+
+1. No painel do Supabase, em **Settings → API → Exposed schemas**, acrescente
+   `barbearia` à lista (a API só enxerga schemas expostos).
+2. Preencha no `.env.local`:
+
+   ```bash
+   DATA_PROVIDER="supabase"
+   SUPABASE_URL="https://kpkrndklpwuybadkpkdw.supabase.co"
+   SUPABASE_SERVICE_ROLE_KEY="…"   # Settings → API → service_role (secreta)
+   ```
+
+3. `npm run dev`. A troca de provider não muda nenhuma tela — quem resolve é
+   `src/services/index.ts`.
+
+A carga inicial (serviços, barbeiros, planos, cupons, usuários de acesso e uma
+agenda de demonstração) já está aplicada por migrations no projeto.
 
 ## SEO e performance
 

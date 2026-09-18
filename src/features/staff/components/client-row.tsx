@@ -13,6 +13,8 @@ interface ClientRowProps {
 }
 
 export function ClientRow({ appointment, client, service, showActions = true }: ClientRowProps) {
+  const displayName = appointment.manualClientName ?? client?.name ?? 'Cliente';
+
   return (
     <article className="surface-card rounded-3xl p-5 transition-colors duration-300 hover:border-line-strong">
       <div className="flex flex-wrap items-start gap-4">
@@ -23,12 +25,17 @@ export function ClientRow({ appointment, client, service, showActions = true }: 
 
         <span className="hidden h-14 w-px bg-tint-strong sm:block" aria-hidden />
 
-        <Avatar name={client?.name ?? 'Cliente'} src={client?.avatarUrl} size="lg" ring />
+        <Avatar name={displayName} src={client?.avatarUrl} size="lg" ring />
 
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-3">
-            <p className="font-medium text-content">{client?.name ?? 'Cliente'}</p>
+            <p className="font-medium text-content">{displayName}</p>
             <StatusBadge status={appointment.status} />
+            {appointment.isManual ? (
+              <span className="rounded-full border border-line px-2 py-0.5 text-[10px] uppercase tracking-wider text-subtle">
+                reserva manual
+              </span>
+            ) : null}
           </div>
 
           <p className="mt-1 text-sm text-muted">

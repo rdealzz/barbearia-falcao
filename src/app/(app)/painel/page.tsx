@@ -1,15 +1,16 @@
-import { CalendarCheck2, CalendarDays, Clock, Scissors, Wallet } from 'lucide-react';
+import Link from 'next/link';
+import { CalendarCheck2, CalendarClock, CalendarDays, Clock, Scissors, Wallet } from 'lucide-react';
 import { EmptyState } from '@/components/ui/empty-state';
 import { StatTile } from '@/features/account/components/stat-tile';
 import { ClientRow } from '@/features/staff/components/client-row';
-import { requireRole } from '@/lib/auth/current-user';
+import { requireStaff } from '@/lib/auth/current-user';
 import { db } from '@/services';
 import { formatCurrency, formatLongDate } from '@/lib/utils/format';
 import { todayDateString } from '@/lib/utils/date';
 
 export default async function StaffTodayPage() {
-  const user = await requireRole('barber');
-  const barberId = user.barberId!;
+  const user = await requireStaff();
+  const barberId = user.barberId;
   const today = todayDateString();
 
   const [appointments, services] = await Promise.all([
@@ -45,7 +46,8 @@ export default async function StaffTodayPage() {
           value={next?.startTime ?? '—'}
           hint={
             next
-              ? clients.find((client) => client.id === next.clientId)?.name
+              ? (next.manualClientName ??
+                clients.find((client) => client.id === next.clientId)?.name)
               : 'Nada pendente no momento'
           }
         />
@@ -59,7 +61,16 @@ export default async function StaffTodayPage() {
       </section>
 
       <section className="space-y-4">
-        <h2 className="font-display text-xl text-content">Clientes de hoje</h2>
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <h2 className="font-display text-xl text-content">Clientes de hoje</h2>
+          <Link
+            href="/painel/agenda"
+            className="inline-flex items-center gap-1.5 rounded-full border border-line px-4 py-1.5 text-sm text-muted transition-colors hover:border-line-strong hover:text-content"
+          >
+            <CalendarClock className="size-4" />
+            Controlar meus horários
+          </Link>
+        </div>
 
         {appointments.length > 0 ? (
           <div className="grid gap-4">

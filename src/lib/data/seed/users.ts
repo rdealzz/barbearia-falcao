@@ -63,6 +63,7 @@ export const usersSeed: User[] = [
   {
     id: 'usr_barbeiro_1',
     role: 'barber',
+    staffRole: 'owner',
     name: 'Rafael Falcão',
     email: 'barbeiro@falcao.com',
     phone: '(41) 99000-0001',
@@ -76,6 +77,7 @@ export const usersSeed: User[] = [
   {
     id: 'usr_barbeiro_2',
     role: 'barber',
+    staffRole: 'barber',
     name: 'Lucas Moreira',
     email: 'lucas@falcao.com',
     phone: '(41) 99000-0002',
