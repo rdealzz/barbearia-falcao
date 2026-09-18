@@ -12,6 +12,20 @@ const contact: ContactChannels = {
   email: '',
 };
 
+/**
+ * URL pública do site. Em produção a Vercel injeta o domínio automaticamente,
+ * então o sitemap, o canonical e o Open Graph ficam corretos mesmo sem
+ * configurar nada. Defina NEXT_PUBLIC_SITE_URL para fixar um domínio próprio.
+ */
+function resolveSiteUrl(): string {
+  if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL;
+  if (process.env.VERCEL_PROJECT_PRODUCTION_URL) {
+    return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`;
+  }
+  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
+  return 'http://localhost:3000';
+}
+
 export const siteConfig = {
   name: 'Barbearia Falcão',
   shortName: 'Falcão',
@@ -22,7 +36,7 @@ export const siteConfig = {
   sloganSupport: 'Corte, barba e cuidado para todas as idades — do primeiro corte ao de sempre.',
   description:
     'Barbearia premium em Curitiba. Cortes, barba e cuidados masculinos com hora marcada, barbeiros especialistas e planos de assinatura.',
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000',
+  url: resolveSiteUrl(),
   locale: 'pt-BR',
   contact,
   address: {

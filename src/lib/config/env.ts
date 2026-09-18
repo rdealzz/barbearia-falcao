@@ -12,5 +12,11 @@ const parsed = schema.safeParse({
   NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
 });
 
+if (process.env.NODE_ENV === 'production' && !process.env.SESSION_SECRET) {
+  console.warn(
+    '[falcao] SESSION_SECRET não definido: as sessões usam a chave padrão. Defina a variável no ambiente de produção.',
+  );
+}
+
 export const env = parsed.success ? parsed.data : schema.parse({});
 export type Env = typeof env;
