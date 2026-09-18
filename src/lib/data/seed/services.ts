@@ -1,0 +1,122 @@
+import type { Service } from '@/types';
+
+const now = '2026-01-05T12:00:00.000Z';
+const base = { createdAt: now, updatedAt: now, isActive: true, includedInPlanIds: [] };
+
+export const servicesSeed: Service[] = [
+  {
+    ...base,
+    id: 'svc_corte',
+    slug: 'corte-masculino',
+    name: 'Corte Masculino',
+    shortDescription: 'Corte sob medida, finalização e styling.',
+    description:
+      'Consultoria de visagismo rápida, corte executado com máquina e tesoura, acabamento na navalha e finalização com produtos profissionais.',
+    category: 'cabelo',
+    priceInCents: 5500,
+    durationInMinutes: 40,
+    highlights: ['Consultoria de visagismo', 'Acabamento na navalha', 'Finalização inclusa'],
+    isFeatured: true,
+    includedInPlanIds: ['plan_corte_ilimitado', 'plan_corte_basic', 'plan_corte_barba_ilimitado', 'plan_corte_barba_basic'],
+  },
+  {
+    ...base,
+    id: 'svc_corte_barba',
+    slug: 'corte-e-barba',
+    name: 'Corte + Barba',
+    shortDescription: 'O combo completo da casa.',
+    description:
+      'Corte completo seguido de barboterapia: toalha quente, óleo, navalha e finalização com bálsamo. O atendimento mais pedido da Falcão.',
+    category: 'combo',
+    priceInCents: 9000,
+    durationInMinutes: 70,
+    highlights: ['Toalha quente', 'Navalha tradicional', 'Bálsamo finalizador'],
+    isFeatured: true,
+    includedInPlanIds: ['plan_corte_barba_ilimitado', 'plan_corte_barba_basic'],
+  },
+  {
+    ...base,
+    id: 'svc_barba',
+    slug: 'barba-terapia',
+    name: 'Barboterapia',
+    shortDescription: 'Barba desenhada com ritual completo.',
+    description:
+      'Modelagem da barba com navalha, toalha quente, esfoliação, massagem facial e hidratação. Ritual completo de cuidado masculino.',
+    category: 'barba',
+    priceInCents: 4500,
+    durationInMinutes: 40,
+    highlights: ['Esfoliação', 'Massagem facial', 'Hidratação'],
+    isFeatured: true,
+    includedInPlanIds: ['plan_barba_ilimitada', 'plan_corte_barba_ilimitado', 'plan_corte_barba_basic'],
+  },
+  {
+    ...base,
+    id: 'svc_pezinho',
+    slug: 'pezinho',
+    name: 'Pezinho / Acabamento',
+    shortDescription: 'Manutenção entre um corte e outro.',
+    description:
+      'Acabamento de nuca, contornos e costeletas para manter o corte no ponto entre as visitas.',
+    category: 'cabelo',
+    priceInCents: 2500,
+    durationInMinutes: 20,
+    highlights: ['Rápido', 'Manutenção semanal', 'Navalha'],
+    isFeatured: false,
+  },
+  {
+    ...base,
+    id: 'svc_infantil',
+    slug: 'corte-infantil',
+    name: 'Corte Infantil',
+    shortDescription: 'Para os pequenos, sem estresse.',
+    description:
+      'Atendimento paciente e lúdico para crianças até 12 anos, com corte adaptado ao tipo de cabelo e à rotina do dia a dia.',
+    category: 'infantil',
+    priceInCents: 4500,
+    durationInMinutes: 40,
+    highlights: ['Até 12 anos', 'Ambiente tranquilo', 'Finalização leve'],
+    isFeatured: false,
+  },
+  {
+    ...base,
+    id: 'svc_sobrancelha',
+    slug: 'sobrancelha',
+    name: 'Sobrancelha',
+    shortDescription: 'Design masculino com navalha ou pinça.',
+    description:
+      'Alinhamento discreto que respeita o traço natural e valoriza o olhar.',
+    category: 'estetica',
+    priceInCents: 2000,
+    durationInMinutes: 15,
+    highlights: ['Design natural', 'Navalha ou pinça', 'Rápido'],
+    isFeatured: false,
+  },
+  {
+    ...base,
+    id: 'svc_platinado',
+    slug: 'platinado',
+    name: 'Platinado / Global',
+    shortDescription: 'Descoloração completa com matização.',
+    description:
+      'Descoloração em etapas com produtos profissionais, matização e tratamento reconstrutor para preservar o fio. Requer avaliação prévia.',
+    category: 'cabelo',
+    priceInCents: 22000,
+    durationInMinutes: 180,
+    highlights: ['Avaliação prévia', 'Matização inclusa', 'Reconstrução do fio'],
+    isFeatured: false,
+  },
+  {
+    ...base,
+    id: 'svc_hidratacao',
+    slug: 'hidratacao',
+    name: 'Hidratação Capilar',
+    shortDescription: 'Recuperação de brilho e maciez.',
+    description:
+      'Protocolo de hidratação profunda com máscara profissional, indicado após química ou exposição solar.',
+    category: 'estetica',
+    priceInCents: 4000,
+    durationInMinutes: 30,
+    highlights: ['Máscara profissional', 'Brilho imediato', 'Pós-química'],
+    isFeatured: false,
+  },
+];

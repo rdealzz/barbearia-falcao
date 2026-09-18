@@ -1,0 +1,375 @@
+// Modelagem do banco da Barbearia Falcão.
+// Espelha os contratos de src/services/repositories.ts — ao ativar o Prisma,
+// basta implementar os repositórios em cima destes modelos.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum UserRole {
+  CLIENT
+  BARBER
+  ADMIN
+}
+
+enum ServiceCategory {
+  CABELO
+  BARBA
+  COMBO
+  ESTETICA
+  INFANTIL
+}
+
+enum AppointmentStatus {
+  PENDING
+  CONFIRMED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+  NO_SHOW
+}
+
+enum PaymentMethod {
+  PIX
+  CREDIT_CARD
+  BOLETO
+  CASH
+  PLAN
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  REFUNDED
+  FAILED
+  NOT_REQUIRED
+}
+
+enum PlanTier {
+  BRONZE
+  SILVER
+  GOLD
+  VIP
+}
+
+enum BillingCycle {
+  MONTHLY
+  QUARTERLY
+  YEARLY
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  PAST_DUE
+  CANCELLED
+  PAUSED
+  PENDING_PAYMENT
+}
+
+enum InvoiceStatus {
+  PAID
+  PENDING
+  OVERDUE
+  REFUNDED
+}
+
+enum TimeOffReason {
+  FERIAS
+  FOLGA
+  AUSENCIA
+  FERIADO
+  BLOQUEIO
+}
+
+enum CouponStatus {
+  AVAILABLE
+  REDEEMED
+  EXPIRED
+}
+
+model User {
+  id             String   @id @default(cuid())
+  role           UserRole @default(CLIENT)
+  name           String
+  email          String   @unique
+  phone          String
+  passwordHash   String?
+  document       String?
+  birthDate      DateTime?
+  avatarUrl      String?
+  notes          String?
+  emailVerified  Boolean  @default(false)
+  marketingOptIn Boolean  @default(false)
+
+  zipCode    String?
+  street     String?
+  number     String?
+  complement String?
+  district   String?
+  city       String?
+  state      String?
+
+  barber        Barber?
+  appointments  Appointment[]
+  subscriptions Subscription[]
+  coupons       CouponRedemption[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([role])
+}
+
+model Barber {
+  id               String   @id @default(cuid())
+  slug             String   @unique
+  name             String
+  nickname         String?
+  role             String
+  headline         String
+  bio              String
+  avatarUrl        String?
+  coverUrl         String?
+  specialties      String[]
+  experienceSince  Int
+  instagramUrl     String?
+  rating           Float    @default(5)
+  reviewsCount     Int      @default(0)
+  isActive         Boolean  @default(true)
+  acceptsNewClients Boolean @default(true)
+
+  slotIntervalInMinutes   Int @default(30)
+  bufferInMinutes         Int @default(10)
+  dailyAppointmentLimit   Int @default(12)
+  minimumNoticeInMinutes  Int @default(60)
+  bookingHorizonInDays    Int @default(45)
+
+  userId String? @unique
+  user   User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  services     Service[]     @relation("BarberServices")
+  workingHours WorkingHour[]
+  timeOff      TimeOff[]
+  appointments Appointment[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model WorkingHour {
+  id        String @id @default(cuid())
+  barberId  String
+  barber    Barber @relation(fields: [barberId], references: [id], onDelete: Cascade)
+  weekday   Int
+  startTime String
+  endTime   String
+
+  @@index([barberId, weekday])
+}
+
+model TimeOff {
+  id        String        @id @default(cuid())
+  barberId  String
+  barber    Barber        @relation(fields: [barberId], references: [id], onDelete: Cascade)
+  reason    TimeOffReason
+  start     DateTime
+  end       DateTime
+  startTime String?
+  endTime   String?
+  note      String?
+
+  @@index([barberId, start, end])
+}
+
+model Service {
+  id                String          @id @default(cuid())
+  slug              String          @unique
+  name              String
+  shortDescription  String
+  description       String
+  category          ServiceCategory
+  priceInCents      Int
+  durationInMinutes Int
+  imageUrl          String?
+  highlights        String[]
+  isActive          Boolean         @default(true)
+  isFeatured        Boolean         @default(false)
+
+  barbers      Barber[]      @relation("BarberServices")
+  plans        Plan[]        @relation("PlanServices")
+  appointments Appointment[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Appointment {
+  id        String            @id @default(cuid())
+  code      String            @unique
+  clientId  String
+  client    User              @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  barberId  String
+  barber    Barber            @relation(fields: [barberId], references: [id], onDelete: Restrict)
+  serviceId String
+  service   Service           @relation(fields: [serviceId], references: [id], onDelete: Restrict)
+
+  date      DateTime
+  startTime String
+  endTime   String
+  status    AppointmentStatus @default(PENDING)
+
+  priceInCents  Int
+  paymentMethod PaymentMethod @default(CASH)
+  paymentStatus PaymentStatus @default(PENDING)
+  paymentExternalId String?
+  paidAt        DateTime?
+
+  notes              String?
+  subscriptionId     String?
+  subscription       Subscription? @relation(fields: [subscriptionId], references: [id], onDelete: SetNull)
+  cancelledAt        DateTime?
+  cancellationReason String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Garante que o mesmo barbeiro não tenha dois atendimentos no mesmo início.
+  @@unique([barberId, date, startTime])
+  @@index([clientId, date])
+  @@index([barberId, date])
+}
+
+model Plan {
+  id                 String       @id @default(cuid())
+  slug               String       @unique
+  name               String
+  tier               PlanTier
+  tagline            String
+  description        String
+  priceInCents       Int
+  billingCycle       BillingCycle @default(MONTHLY)
+  haircutsPerCycle   Int?
+  beardsPerCycle     Int?
+  discountPercentage Int          @default(0)
+  priority           Int          @default(0)
+  seatsAvailable     Int?
+  isActive           Boolean      @default(true)
+  isPopular          Boolean      @default(false)
+  termsUrl           String?
+
+  benefits      PlanBenefit[]
+  services      Service[]      @relation("PlanServices")
+  subscriptions Subscription[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model PlanBenefit {
+  id          String  @id @default(cuid())
+  planId      String
+  plan        Plan    @relation(fields: [planId], references: [id], onDelete: Cascade)
+  label       String
+  description String?
+  included    Boolean @default(true)
+  position    Int     @default(0)
+
+  @@index([planId])
+}
+
+model Subscription {
+  id     String             @id @default(cuid())
+  userId String
+  user   User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  planId String
+  plan   Plan               @relation(fields: [planId], references: [id], onDelete: Restrict)
+  status SubscriptionStatus @default(PENDING_PAYMENT)
+
+  startedAt          DateTime  @default(now())
+  currentPeriodStart DateTime
+  currentPeriodEnd   DateTime
+  nextChargeAt       DateTime?
+  cancelledAt        DateTime?
+  autoRenew          Boolean   @default(true)
+
+  haircutsUsed Int @default(0)
+  beardsUsed   Int @default(0)
+
+  externalCustomerId     String?
+  externalSubscriptionId String?
+
+  invoices     Invoice[]
+  appointments Appointment[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId, status])
+}
+
+model Invoice {
+  id             String        @id @default(cuid())
+  subscriptionId String
+  subscription   Subscription  @relation(fields: [subscriptionId], references: [id], onDelete: Cascade)
+  amountInCents  Int
+  status         InvoiceStatus @default(PENDING)
+  dueDate        DateTime
+  paidAt         DateTime?
+  method         PaymentMethod?
+  receiptUrl     String?
+  externalId     String?       @unique
+
+  createdAt DateTime @default(now())
+
+  @@index([subscriptionId, status])
+}
+
+model Coupon {
+  id            String       @id @default(cuid())
+  title         String
+  description   String
+  discountType  String
+  discountValue Int
+  requiredTier  PlanTier?
+  status        CouponStatus @default(AVAILABLE)
+  expiresInHours Int         @default(24)
+  usageLimit    Int          @default(1)
+
+  redemptions CouponRedemption[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model CouponRedemption {
+  id         String   @id @default(cuid())
+  couponId   String
+  coupon     Coupon   @relation(fields: [couponId], references: [id], onDelete: Cascade)
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  code       String   @unique
+  redeemedAt DateTime @default(now())
+  expiresAt  DateTime
+  usedAt     DateTime?
+
+  @@index([userId])
+}
+
+/// Registro dos webhooks do ASAAS, para reprocessamento e auditoria.
+model WebhookEvent {
+  id          String   @id @default(cuid())
+  provider    String
+  externalId  String   @unique
+  type        String
+  payload     Json
+  processedAt DateTime?
+  createdAt   DateTime @default(now())
+
+  @@index([provider, type])
+}

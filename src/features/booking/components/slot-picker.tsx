@@ -1,0 +1,109 @@
+'use client';
+
+import { CalendarX2, Loader2 } from 'lucide-react';
+import { Skeleton } from '@/components/ui/skeleton';
+import { cn } from '@/lib/utils/cn';
+import type { TimeSlot } from '@/types';
+
+interface SlotPickerProps {
+  slots: TimeSlot[];
+  value?: string;
+  onChange: (time: string) => void;
+  loading?: boolean;
+}
+
+const periods = [
+  { label: 'Manhã', from: 0, to: 12 },
+  { label: 'Tarde', from: 12, to: 18 },
+  { label: 'Noite', from: 18, to: 24 },
+];
+
+export function SlotPicker({ slots, value, onChange, loading = false }: SlotPickerProps) {
+  if (loading) {
+    return (
+      <div className="space-y-6">
+        <p className="flex items-center gap-2 text-sm text-ink-500">
+          <Loader2 className="size-4 animate-spin" />
+          Consultando a agenda…
+        </p>
+        <div className="grid grid-cols-3 gap-2 sm:grid-cols-5">
+          {Array.from({ length: 10 }).map((_, index) => (
+            <Skeleton key={index} className="h-11 rounded-xl" />
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  if (slots.length === 0) {
+    return (
+      <div className="flex flex-col items-center gap-3 rounded-2xl border border-dashed border-white/10 py-12 text-center">
+        <CalendarX2 className="size-6 text-ink-600" />
+        <p className="text-sm text-ink-400">Este barbeiro não atende na data escolhida.</p>
+        <p className="text-xs text-ink-600">Selecione outro dia para ver os horários livres.</p>
+      </div>
+    );
+  }
+
+  const groups = periods
+    .map((period) => ({
+      ...period,
+      items: slots.filter((slot) => {
+        const hour = Number(slot.time.split(':')[0]);
+        return hour >= period.from && hour < period.to;
+      }),
+    }))
+    .filter((group) => group.items.length > 0);
+
+  const hasAvailable = slots.some((slot) => slot.available);
+
+  return (
+    <div className="space-y-6">
+      {!hasAvailable ? (
+        <p className="rounded-2xl border border-amber-500/20 bg-amber-500/[0.06] px-4 py-3 text-sm text-amber-200">
+          Todos os horários deste dia já foram preenchidos. Tente outra data.
+        </p>
+      ) : null}
+
+      {groups.map((group) => (
+        <div key={group.label}>
+          <p className="mb-3 text-xs font-medium uppercase tracking-[0.2em] text-ink-600">
+            {group.label}
+          </p>
+          <div className="grid grid-cols-3 gap-2 sm:grid-cols-5">
+            {group.items.map((slot) => (
+              <button
+                key={slot.time}
+                type="button"
+                disabled={!slot.available}
+                onClick={() => onChange(slot.time)}
+                aria-pressed={value === slot.time}
+                title={
+                  slot.available
+                    ? undefined
+                    : slot.reason === 'booked'
+                      ? 'Horário já reservado'
+                      : slot.reason === 'time_off'
+                        ? 'Barbeiro indisponível'
+                        : slot.reason === 'limit_reached'
+                          ? 'Limite diário atingido'
+                          : 'Horário indisponível'
+                }
+                className={cn(
+                  'h-11 rounded-xl border text-sm transition-all duration-200',
+                  value === slot.time
+                    ? 'border-falcao-500/60 bg-falcao-600 text-white'
+                    : 'border-white/[0.08] bg-white/[0.02] text-ink-200 hover:border-white/25 hover:bg-white/[0.06]',
+                  !slot.available &&
+                    'cursor-not-allowed border-white/[0.04] bg-transparent text-ink-700 line-through hover:border-white/[0.04] hover:bg-transparent',
+                )}
+              >
+                {slot.time}
+              </button>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}

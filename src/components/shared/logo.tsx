@@ -1,0 +1,47 @@
+import { cn } from '@/lib/utils/cn';
+
+interface LogoProps {
+  className?: string;
+  showWordmark?: boolean;
+}
+
+/**
+ * Marca da casa em SVG — nítida em qualquer tamanho e trocável pelo
+ * arquivo oficial sem alterar o restante da interface.
+ */
+export function Logo({ className, showWordmark = true }: LogoProps) {
+  return (
+    <span className={cn('inline-flex items-center gap-3', className)}>
+      <svg
+        viewBox="0 0 48 48"
+        className="size-9 shrink-0"
+        role="img"
+        aria-label="Barbearia Falcão"
+      >
+        <circle cx="24" cy="24" r="22.5" className="fill-falcao-600" />
+        <circle
+          cx="24"
+          cy="24"
+          r="20"
+          className="fill-none stroke-ink-950"
+          strokeWidth="1.5"
+        />
+        <path
+          d="M24 11.5c5 2.6 8.4 4.9 10.6 9.2 2.2 4.3 1.3 9.9-2.6 13.2-1.4-3.4-3.3-5.2-6-6.8 1 2.6 1 5-.2 7.6-1.6-1.4-3-2-4.9-2.3 1.4 2 1.7 3.8 1.1 6.1-3.5-1.4-6.3-3.6-7.8-7-1.9-4.3-.9-9 2.2-12.4.6 2 1.6 3.3 3.2 4.4-.6-4.6.9-8.6 4.4-12z"
+          className="fill-white"
+        />
+        <rect x="22.6" y="33" width="2.8" height="7" rx="1.4" className="fill-white" />
+      </svg>
+      {showWordmark ? (
+        <span className="flex flex-col leading-none">
+          <span className="font-display text-base font-semibold tracking-tight text-white">
+            Barbearia Falcão
+          </span>
+          <span className="text-[10px] font-medium uppercase tracking-[0.28em] text-ink-500">
+            Cuts &amp; Shave
+          </span>
+        </span>
+      ) : null}
+    </span>
+  );
+}
