@@ -220,18 +220,28 @@ Decisões que valem registrar:
 
 ### Ativando o Supabase
 
-1. No painel do Supabase, em **Settings → API → Exposed schemas**, acrescente
-   `barbearia` à lista (a API só enxerga schemas expostos).
-2. Preencha no `.env.local`:
+```bash
+npm run setup:env        # cria o .env.local já preenchido
+# cole a chave secreta na linha SUPABASE_SERVICE_ROLE_KEY
+npm run check:supabase   # confere conexão, logins e as duas trancas
+npm run dev
+```
 
-   ```bash
-   DATA_PROVIDER="supabase"
-   SUPABASE_URL="https://xmfeeasrnbyujummqmxz.supabase.co"
-   SUPABASE_SERVICE_ROLE_KEY="…"   # Settings → API → service_role (secreta)
-   ```
+Dois passos precisam de você:
 
-3. `npm run dev`. A troca de provider não muda nenhuma tela — quem resolve é
-   `src/services/index.ts`.
+1. **A chave secreta.** Supabase → *Project Settings → API Keys → Secret keys →
+   Reveal*. Ela dá acesso total ao banco e ignora o RLS: vive só em variável de
+   ambiente no servidor, nunca no navegador nem no Git.
+2. **Expor o schema.** Supabase → *Project Settings → API → Exposed schemas* →
+   acrescente `barbearia`. A Data API só enxerga schemas expostos.
+
+`npm run check:supabase` diz exatamente qual dos dois está faltando, e nunca
+imprime a chave — a saída pode ser colada em qualquer lugar para diagnóstico.
+
+Em produção (Vercel e afins), as mesmas variáveis vão no painel de *Environment
+Variables* do serviço, nunca em arquivo versionado.
+
+A troca de provider não muda nenhuma tela — quem resolve é `src/services/index.ts`.
 
 A carga inicial (serviços, barbeiros, planos, cupons, usuários de acesso e uma
 agenda de demonstração) já está aplicada por migrations no projeto.
