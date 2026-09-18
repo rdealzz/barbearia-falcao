@@ -206,9 +206,12 @@ projeto Supabase "barbearia"
 
 Decisões que valem registrar:
 
-- **RLS ligado em tudo.** Só o catálogo (serviços, barbeiros, planos, cupons) tem
-  política de leitura pública. Agenda, clientes e assinaturas não têm política
-  nenhuma: ninguém lê pela API pública, apenas o servidor com a service role.
+- **Duas trancas, não uma.** Além do RLS, os `GRANT`s são explícitos: só a
+  service role (servidor) alcança agenda, clientes e assinaturas. `anon` tem
+  `SELECT` apenas nas quatro tabelas de catálogo — sem grant, nem uma política
+  de RLS mal escrita no futuro exporia o resto.
+- **RLS ligado em tudo.** Só o catálogo (serviços, barbeiros, planos, cupons)
+  tem política de leitura pública.
 - **Senhas com `pgcrypto`.** Ficam como hash bcrypt em `profiles.password_hash`;
   `barbearia.verify_password(email, senha)` confere sem nunca devolver o hash.
 - **`staff_role`** separa o barbeiro-chefe do funcionário, igual ao app.

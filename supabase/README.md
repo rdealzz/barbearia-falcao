@@ -12,12 +12,16 @@ projeto `xmfeeasrnbyujummqmxz`, na ordem dos nomes de arquivo.
 | `..._rls_and_auth_helpers.sql` | RLS em todas as tabelas + funções de senha e de nível de acesso |
 | `..._seed_catalog.sql` | Serviços, barbeiros, planos e cupons |
 | `..._seed_users_and_agenda.sql` | Usuários de acesso e agenda de demonstração |
+| `..._schema_grants.sql` | Permissões da Data API — sem elas nem a service_role lê o schema |
 
 ## Regras que sustentam o desenho
 
-- **RLS ligado em tudo.** Só o catálogo tem política de leitura pública; agenda,
-  clientes e assinaturas não têm política alguma e só são acessíveis pela
-  service role, no servidor.
+- **Duas trancas, não uma.** Um schema fora da `public` não tem permissão
+  nenhuma por padrão, então os `GRANT`s são explícitos: `service_role` acessa
+  tudo; `anon`/`authenticated` só têm `SELECT` nas quatro tabelas de catálogo.
+  Agenda, clientes e assinaturas não recebem grant algum — nem uma política de
+  RLS mal escrita no futuro os exporia.
+- **RLS ligado em tudo.** Só o catálogo tem política de leitura pública.
 - **Senhas nunca em texto puro.** Hash bcrypt via `pgcrypto`, conferido por
   `barbearia.verify_password(email, senha)`.
 - **`staff_role`** (`owner` | `barber`) separa o barbeiro-chefe do funcionário,
