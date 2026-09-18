@@ -27,45 +27,45 @@ export function AppointmentCard({
   const [state, formAction, pending] = useActionState(cancelBookingAction, initialActionState);
 
   return (
-    <article className="surface-card rounded-3xl p-5 transition-colors duration-300 hover:border-white/15">
+    <article className="surface-card rounded-3xl p-5 transition-colors duration-300 hover:border-line-strong">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="flex items-center gap-3">
           <Avatar name={barber?.name ?? 'Barbearia Falcão'} src={barber?.avatarUrl} size="md" />
           <div>
-            <p className="font-medium text-white">{service?.name ?? 'Serviço'}</p>
-            <p className="text-sm text-ink-500">com {barber?.name ?? 'a equipe'}</p>
+            <p className="font-medium text-content">{service?.name ?? 'Serviço'}</p>
+            <p className="text-sm text-muted">com {barber?.name ?? 'a equipe'}</p>
           </div>
         </div>
         <StatusBadge status={appointment.status} />
       </div>
 
       <dl className="mt-5 grid gap-3 text-sm sm:grid-cols-3">
-        <div className="flex items-center gap-2 text-ink-300">
+        <div className="flex items-center gap-2 text-muted">
           <CalendarClock className="size-4 shrink-0 text-falcao-400" />
           {formatDateTime(appointment.date, appointment.startTime)}
         </div>
-        <div className="flex items-center gap-2 text-ink-300">
+        <div className="flex items-center gap-2 text-muted">
           <Scissors className="size-4 shrink-0 text-falcao-400" />
           {service ? formatDuration(service.durationInMinutes) : '—'}
-          <span className="text-ink-600">·</span>
+          <span className="text-subtle">·</span>
           {appointment.priceInCents === 0
             ? 'Incluso no plano'
             : formatCurrency(appointment.priceInCents)}
         </div>
-        <div className="flex items-center gap-2 text-ink-300">
+        <div className="flex items-center gap-2 text-muted">
           <MapPin className="size-4 shrink-0 text-falcao-400" />
           {siteConfig.address.street}, {siteConfig.address.number}
         </div>
       </dl>
 
       {appointment.notes ? (
-        <p className="mt-4 rounded-2xl bg-white/[0.03] px-4 py-3 text-sm text-ink-400">
+        <p className="mt-4 rounded-2xl bg-tint px-4 py-3 text-sm text-muted">
           {appointment.notes}
         </p>
       ) : null}
 
-      <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-white/[0.06] pt-4">
-        <span className="font-mono text-xs tracking-widest text-ink-600">{appointment.code}</span>
+      <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-line pt-4">
+        <span className="font-mono text-xs tracking-widest text-subtle">{appointment.code}</span>
 
         {cancellable ? (
           <form action={formAction}>
@@ -79,7 +79,7 @@ export function AppointmentCard({
       </div>
 
       {state.status === 'error' && state.message ? (
-        <p role="alert" className="mt-3 text-sm text-falcao-300">
+        <p role="alert" className="mt-3 text-sm text-falcao-700 dark:text-falcao-300">
           {state.message}
         </p>
       ) : null}

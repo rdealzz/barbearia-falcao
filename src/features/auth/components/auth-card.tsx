@@ -16,12 +16,12 @@ export function AuthCard({ title, description, children, footer }: AuthCardProps
         <Logo />
       </Link>
 
-      <h1 className="font-display text-3xl text-white">{title}</h1>
-      <p className="mt-2 text-sm leading-relaxed text-ink-400">{description}</p>
+      <h1 className="font-display text-3xl text-content">{title}</h1>
+      <p className="mt-2 text-sm leading-relaxed text-muted">{description}</p>
 
       <div className="mt-8">{children}</div>
 
-      {footer ? <div className="mt-8 text-sm text-ink-500">{footer}</div> : null}
+      {footer ? <div className="mt-8 text-sm text-muted">{footer}</div> : null}
     </div>
   );
 }

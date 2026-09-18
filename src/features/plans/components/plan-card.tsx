@@ -24,8 +24,8 @@ export function PlanCard({
       className={cn(
         'group relative flex h-full flex-col gap-6 rounded-3xl p-7 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1',
         plan.isPopular
-          ? 'border border-falcao-500/40 bg-gradient-to-b from-falcao-950/40 to-ink-900 shadow-[0_30px_80px_-40px_oklch(0.51_0.2_27/0.8)]'
-          : 'surface-card hover:border-white/20',
+          ? 'border-2 border-falcao-500/50 bg-surface shadow-[0_30px_80px_-40px_oklch(0.51_0.2_27/0.55)]'
+          : 'surface-card hover:border-line-strong',
         className,
       )}
     >
@@ -39,20 +39,20 @@ export function PlanCard({
       ) : null}
 
       <div className="space-y-2">
-        <h3 className="font-display text-xl text-white">{plan.name}</h3>
-        <p className="text-sm text-ink-400">{plan.tagline}</p>
+        <h3 className="font-display text-xl text-content">{plan.name}</h3>
+        <p className="text-sm text-muted">{plan.tagline}</p>
       </div>
 
       <div>
         <div className="flex items-end gap-1">
-          <span className="font-display text-4xl text-white">
+          <span className="font-display text-4xl text-content">
             {formatCurrency(plan.priceInCents)}
           </span>
-          <span className="pb-1.5 text-sm text-ink-500">/mês</span>
+          <span className="pb-1.5 text-sm text-muted">/mês</span>
         </div>
-        <p className="mt-1 text-xs text-ink-600">Vigência indeterminada · cancele quando quiser</p>
+        <p className="mt-1 text-xs text-subtle">Vigência indeterminada · cancele quando quiser</p>
         {plan.seatsAvailable !== null ? (
-          <p className="mt-2 text-xs font-medium text-falcao-300">
+          <p className="mt-2 text-xs font-medium text-falcao-700 dark:text-falcao-300">
             Resta{plan.seatsAvailable === 1 ? '' : 'm'} {plan.seatsAvailable} vaga
             {plan.seatsAvailable === 1 ? '' : 's'} para esse plano
           </p>
@@ -65,13 +65,13 @@ export function PlanCard({
             key={benefit.label}
             className={cn(
               'flex items-start gap-3 text-sm',
-              benefit.included ? 'text-ink-200' : 'text-ink-600',
+              benefit.included ? 'text-content' : 'text-subtle',
             )}
           >
             <span
               className={cn(
                 'mt-0.5 grid size-5 shrink-0 place-items-center rounded-full',
-                benefit.included ? 'bg-falcao-600/20 text-falcao-300' : 'bg-white/[0.04] text-ink-600',
+                benefit.included ? 'bg-falcao-600/20 text-falcao-700 dark:text-falcao-300' : 'bg-tint text-subtle',
               )}
             >
               {benefit.included ? <Check className="size-3" /> : <Minus className="size-3" />}

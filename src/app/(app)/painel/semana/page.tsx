@@ -29,8 +29,8 @@ export default async function StaffWeekPage() {
   return (
     <div className="space-y-8">
       <header>
-        <h1 className="font-display text-3xl text-white">Agenda da semana</h1>
-        <p className="mt-1 text-sm text-ink-500">
+        <h1 className="font-display text-3xl text-content">Agenda da semana</h1>
+        <p className="mt-1 text-sm text-muted">
           Visão completa dos seus atendimentos de segunda a domingo.
         </p>
       </header>
@@ -58,15 +58,15 @@ export default async function StaffWeekPage() {
               >
                 <header className="flex items-baseline justify-between">
                   <div>
-                    <p className="text-xs uppercase tracking-[0.18em] text-ink-600">
+                    <p className="text-xs uppercase tracking-[0.18em] text-subtle">
                       {WEEKDAY_SHORT[weekdayOf(date) as Weekday]}
                     </p>
-                    <p className="font-display text-2xl text-white">
+                    <p className="font-display text-2xl text-content">
                       {parseDateString(date).getDate()}
                     </p>
                   </div>
                   {isToday ? (
-                    <span className="rounded-full bg-falcao-600/20 px-2 py-0.5 text-[10px] uppercase tracking-wider text-falcao-300">
+                    <span className="rounded-full bg-falcao-600/20 px-2 py-0.5 text-[10px] uppercase tracking-wider text-falcao-700 dark:text-falcao-300">
                       hoje
                     </span>
                   ) : null}
@@ -74,7 +74,7 @@ export default async function StaffWeekPage() {
 
                 <ul className="mt-4 space-y-3">
                   {dayAppointments.length === 0 ? (
-                    <li className="rounded-2xl border border-dashed border-white/[0.08] px-3 py-6 text-center text-xs text-ink-600">
+                    <li className="rounded-2xl border border-dashed border-line px-3 py-6 text-center text-xs text-subtle">
                       Sem atendimentos
                     </li>
                   ) : (
@@ -85,15 +85,15 @@ export default async function StaffWeekPage() {
                       return (
                         <li
                           key={appointment.id}
-                          className="rounded-2xl bg-white/[0.03] p-3 transition-colors hover:bg-white/[0.06]"
+                          className="rounded-2xl bg-tint p-3 transition-colors hover:bg-tint-strong"
                         >
                           <div className="flex items-center gap-2">
                             <Avatar name={client?.name ?? 'Cliente'} src={client?.avatarUrl} size="sm" />
                             <div className="min-w-0 flex-1">
-                              <p className="truncate text-sm text-white">
+                              <p className="truncate text-sm text-content">
                                 {client?.name ?? 'Cliente'}
                               </p>
-                              <p className="text-xs text-ink-500">
+                              <p className="text-xs text-muted">
                                 {appointment.startTime} · {service?.name}
                               </p>
                             </div>

@@ -37,18 +37,18 @@ const sections = [
 
 export default function TermsPage() {
   return (
-    <Section className="pt-36">
+    <Section spacing="page">
       <Container className="max-w-3xl">
-        <h1 className="font-display text-4xl text-white">Termos de Uso</h1>
-        <p className="mt-4 text-sm text-ink-500">
+        <h1 className="font-display text-4xl text-content">Termos de Uso</h1>
+        <p className="mt-4 text-sm text-muted">
           Última atualização: {new Date().toLocaleDateString('pt-BR')}
         </p>
 
         <div className="mt-12 space-y-10">
           {sections.map((section) => (
             <section key={section.title}>
-              <h2 className="font-display text-xl text-white">{section.title}</h2>
-              <p className="mt-3 leading-relaxed text-ink-400">{section.body}</p>
+              <h2 className="font-display text-xl text-content">{section.title}</h2>
+              <p className="mt-3 leading-relaxed text-muted">{section.body}</p>
             </section>
           ))}
         </div>

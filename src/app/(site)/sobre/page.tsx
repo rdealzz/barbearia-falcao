@@ -44,7 +44,7 @@ export default async function AboutPage() {
 
   return (
     <>
-      <Section className="pt-36 pb-12">
+      <Section spacing="pageTight">
         <Container>
           <div className="grid gap-14 lg:grid-cols-2 lg:items-center">
             <div>
@@ -53,7 +53,7 @@ export default async function AboutPage() {
                 title="Uma barbearia construída cadeira por cadeira"
                 description="A Falcão nasceu em 2018 no Novo Mundo com uma cadeira, uma navalha e uma régua alta. Sete anos depois, são milhares de atendimentos e uma equipe que trata corte como ofício."
               />
-              <Reveal delay={0.1} className="mt-8 space-y-5 text-ink-400">
+              <Reveal delay={0.1} className="mt-8 space-y-5 text-muted">
                 <p className="leading-relaxed">
                   O que começou como um espaço pequeno virou ponto de encontro do bairro. Cliente
                   que entrou para cortar o cabelo antes do trabalho voltou com o filho, depois com
@@ -77,17 +77,17 @@ export default async function AboutPage() {
         </Container>
       </Section>
 
-      <Section className="bg-ink-900/30">
+      <Section className="bg-canvas-subtle">
         <Container>
           <Stagger className="grid gap-5 md:grid-cols-3">
             {values.map((value) => (
               <StaggerItem key={value.title} className="h-full">
                 <div className="surface-card h-full rounded-3xl p-7">
-                  <span className="grid size-11 place-items-center rounded-2xl border border-white/[0.08] bg-white/[0.03] text-falcao-400">
+                  <span className="grid size-11 place-items-center rounded-2xl border border-line bg-tint text-falcao-400">
                     <value.icon className="size-5" />
                   </span>
-                  <h3 className="mt-5 font-display text-xl text-white">{value.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-ink-400">{value.description}</p>
+                  <h3 className="mt-5 font-display text-xl text-content">{value.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted">{value.description}</p>
                 </div>
               </StaggerItem>
             ))}
@@ -112,7 +112,7 @@ export default async function AboutPage() {
         </Container>
       </Section>
 
-      <Section className="pt-0">
+      <Section spacing="continues">
         <Container>
           <SectionHeading
             eyebrow="Estrutura"

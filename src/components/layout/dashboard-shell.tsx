@@ -8,6 +8,7 @@ import type { ReactNode } from 'react';
 import { Avatar } from '@/components/ui/avatar';
 import { Logo } from '@/components/shared/logo';
 import { logoutAction } from '@/features/auth/actions';
+import { ThemeToggle } from '@/features/theme/theme-toggle';
 import { cn } from '@/lib/utils/cn';
 
 export interface DashboardNavItem {
@@ -27,8 +28,8 @@ export function DashboardShell({ items, user, subtitle, children }: DashboardShe
   const pathname = usePathname();
 
   return (
-    <div className="min-h-dvh bg-ink-950 lg:flex">
-      <aside className="hidden w-72 shrink-0 flex-col border-r border-white/[0.06] p-6 lg:flex">
+    <div className="min-h-dvh bg-canvas lg:flex">
+      <aside className="hidden w-72 shrink-0 flex-col border-r border-line p-6 lg:flex">
         <Link href="/" className="mb-10">
           <Logo />
         </Link>
@@ -43,13 +44,13 @@ export function DashboardShell({ items, user, subtitle, children }: DashboardShe
                 href={item.href}
                 className={cn(
                   'relative flex items-center gap-3 rounded-2xl px-4 py-3 text-sm transition-colors',
-                  active ? 'text-white' : 'text-ink-400 hover:text-ink-100',
+                  active ? 'text-content' : 'text-muted hover:text-content',
                 )}
               >
                 {active ? (
                   <motion.span
                     layoutId="dashboard-active"
-                    className="absolute inset-0 rounded-2xl border border-white/10 bg-white/[0.05]"
+                    className="absolute inset-0 rounded-2xl border border-line bg-tint-strong"
                     transition={{ type: 'spring', stiffness: 380, damping: 32 }}
                   />
                 ) : null}
@@ -62,18 +63,18 @@ export function DashboardShell({ items, user, subtitle, children }: DashboardShe
           })}
         </nav>
 
-        <div className="mt-6 space-y-4 border-t border-white/[0.06] pt-6">
+        <div className="mt-6 space-y-4 border-t border-line pt-6">
           <div className="flex items-center gap-3">
             <Avatar name={user.name} src={user.avatarUrl} size="md" />
             <div className="min-w-0">
-              <p className="truncate text-sm font-medium text-white">{user.name}</p>
-              <p className="truncate text-xs text-ink-500">{subtitle}</p>
+              <p className="truncate text-sm font-medium text-content">{user.name}</p>
+              <p className="truncate text-xs text-muted">{subtitle}</p>
             </div>
           </div>
           <form action={logoutAction}>
             <button
               type="submit"
-              className="flex w-full items-center gap-3 rounded-2xl px-4 py-3 text-sm text-ink-400 transition-colors hover:bg-white/[0.04] hover:text-white"
+              className="flex w-full items-center gap-3 rounded-2xl px-4 py-3 text-sm text-muted transition-colors hover:bg-tint-strong hover:text-content"
             >
               <LogOut className="size-4" />
               Sair
@@ -83,7 +84,7 @@ export function DashboardShell({ items, user, subtitle, children }: DashboardShe
       </aside>
 
       <div className="flex min-w-0 flex-1 flex-col">
-        <header className="sticky top-0 z-30 flex items-center justify-between gap-4 border-b border-white/[0.06] bg-ink-950/85 px-5 py-4 backdrop-blur-xl lg:hidden">
+        <header className="sticky top-0 z-30 flex items-center justify-between gap-4 border-b border-line bg-canvas/85 px-5 py-4 backdrop-blur-xl lg:hidden">
           <Link href="/">
             <Logo showWordmark={false} />
           </Link>
@@ -96,7 +97,7 @@ export function DashboardShell({ items, user, subtitle, children }: DashboardShe
                   href={item.href}
                   className={cn(
                     'whitespace-nowrap rounded-full px-3 py-1.5 text-xs transition-colors',
-                    active ? 'bg-white/[0.08] text-white' : 'text-ink-400',
+                    active ? 'bg-tint-strong text-content' : 'text-muted',
                   )}
                 >
                   {item.label}
@@ -104,11 +105,14 @@ export function DashboardShell({ items, user, subtitle, children }: DashboardShe
               );
             })}
           </nav>
-          <form action={logoutAction}>
-            <button type="submit" aria-label="Sair" className="text-ink-400 hover:text-white">
-              <LogOut className="size-5" />
-            </button>
-          </form>
+          <div className="flex items-center gap-2">
+            <ThemeToggle className="size-9" />
+            <form action={logoutAction}>
+              <button type="submit" aria-label="Sair" className="text-muted hover:text-content">
+                <LogOut className="size-5" />
+              </button>
+            </form>
+          </div>
         </header>
 
         <main className="flex-1 px-5 py-8 sm:px-8 lg:px-10 lg:py-12">{children}</main>

@@ -28,8 +28,8 @@ export default async function StaffClientsPage() {
   return (
     <div className="space-y-8">
       <header>
-        <h1 className="font-display text-3xl text-white">Próximos clientes</h1>
-        <p className="mt-1 text-sm text-ink-500">
+        <h1 className="font-display text-3xl text-content">Próximos clientes</h1>
+        <p className="mt-1 text-sm text-muted">
           Quem está marcado com você nos próximos 30 dias, com foto para facilitar a identificação.
         </p>
       </header>
@@ -44,9 +44,9 @@ export default async function StaffClientsPage() {
         <div className="space-y-10">
           {Object.entries(grouped).map(([date, items]) => (
             <section key={date} className="space-y-4">
-              <h2 className="flex items-center gap-3 text-sm font-medium uppercase tracking-[0.18em] text-ink-500">
+              <h2 className="flex items-center gap-3 text-sm font-medium uppercase tracking-[0.18em] text-muted">
                 {date === today ? 'Hoje' : formatShortDate(date)}
-                <span className="h-px flex-1 bg-white/[0.06]" />
+                <span className="h-px flex-1 bg-tint-strong" />
               </h2>
               <div className="grid gap-4">
                 {items.map((appointment) => (

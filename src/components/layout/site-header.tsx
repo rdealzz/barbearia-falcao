@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Avatar } from '@/components/ui/avatar';
 import { Logo } from '@/components/shared/logo';
+import { ThemeToggle } from '@/features/theme/theme-toggle';
 import { navigation } from '@/lib/config/site';
 import { cn } from '@/lib/utils/cn';
 import type { PublicUser } from '@/types';
@@ -53,7 +54,7 @@ export function SiteHeader({ user }: SiteHeaderProps) {
           className={cn(
             'flex items-center justify-between rounded-full transition-all duration-500',
             scrolled
-              ? 'glass border border-white/10 px-4 py-2.5 shadow-[0_20px_50px_-30px_rgba(0,0,0,0.9)]'
+              ? 'glass border border-line px-4 py-2.5 shadow-[0_20px_50px_-30px_rgba(0,0,0,0.9)]'
               : 'border border-transparent px-1 py-1',
           )}
         >
@@ -71,13 +72,13 @@ export function SiteHeader({ user }: SiteHeaderProps) {
                   href={item.href}
                   className={cn(
                     'relative rounded-full px-4 py-2 text-sm transition-colors duration-200',
-                    active ? 'text-white' : 'text-ink-400 hover:text-ink-100',
+                    active ? 'text-content' : 'text-muted hover:text-content',
                   )}
                 >
                   {active ? (
                     <motion.span
                       layoutId="nav-active"
-                      className="absolute inset-0 rounded-full bg-white/[0.07]"
+                      className="absolute inset-0 rounded-full bg-tint-strong"
                       transition={{ type: 'spring', stiffness: 380, damping: 32 }}
                     />
                   ) : null}
@@ -88,10 +89,12 @@ export function SiteHeader({ user }: SiteHeaderProps) {
           </nav>
 
           <div className="flex items-center gap-2">
+            <ThemeToggle />
+
             {user ? (
               <Link
                 href={accountHref}
-                className="hidden items-center gap-2 rounded-full border border-white/10 py-1.5 pl-1.5 pr-4 text-sm text-ink-200 transition-colors hover:border-white/25 hover:text-white sm:inline-flex"
+                className="hidden items-center gap-2 rounded-full border border-line py-1.5 pl-1.5 pr-4 text-sm text-content transition-colors hover:border-line-strong hover:text-content sm:inline-flex"
               >
                 <Avatar name={user.name} src={user.avatarUrl} size="sm" />
                 {user.name.split(' ')[0]}
@@ -115,7 +118,7 @@ export function SiteHeader({ user }: SiteHeaderProps) {
             <button
               type="button"
               onClick={() => setMenuOpen((value) => !value)}
-              className="grid size-10 place-items-center rounded-full border border-white/10 text-ink-200 transition-colors hover:text-white lg:hidden"
+              className="grid size-10 place-items-center rounded-full border border-line text-content transition-colors hover:text-content lg:hidden"
               aria-label={menuOpen ? 'Fechar menu' : 'Abrir menu'}
               aria-expanded={menuOpen}
             >
@@ -132,7 +135,7 @@ export function SiteHeader({ user }: SiteHeaderProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-0 top-0 z-30 bg-ink-950/95 backdrop-blur-xl lg:hidden"
+            className="fixed inset-0 top-0 z-30 bg-canvas/95 backdrop-blur-xl lg:hidden"
           >
             <nav className="flex h-full flex-col gap-1 px-6 pb-10 pt-28" aria-label="Menu mobile">
               {navigation.main.map((item, index) => (
@@ -144,7 +147,7 @@ export function SiteHeader({ user }: SiteHeaderProps) {
                 >
                   <Link
                     href={item.href}
-                    className="block border-b border-white/[0.06] py-4 font-display text-2xl text-ink-200 transition-colors hover:text-white"
+                    className="block border-b border-line py-4 font-display text-2xl text-content transition-colors hover:text-content"
                   >
                     {item.label}
                   </Link>

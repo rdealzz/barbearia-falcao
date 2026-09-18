@@ -54,11 +54,11 @@ export function AvatarPicker({ name, defaultValue }: AvatarPickerProps) {
         aria-label="Alterar foto de perfil"
       >
         <Avatar name={name} src={preview || undefined} size="xl" ring />
-        <span className="absolute inset-0 grid place-items-center rounded-full bg-ink-950/60 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+        <span className="absolute inset-0 grid place-items-center rounded-full bg-canvas/60 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
           {loading ? (
-            <Loader2 className="size-5 animate-spin text-white" />
+            <Loader2 className="size-5 animate-spin text-content" />
           ) : (
-            <Camera className="size-5 text-white" />
+            <Camera className="size-5 text-content" />
           )}
         </span>
       </button>
@@ -78,7 +78,7 @@ export function AvatarPicker({ name, defaultValue }: AvatarPickerProps) {
         <button
           type="button"
           onClick={() => inputRef.current?.click()}
-          className="text-xs text-ink-400 transition-colors hover:text-white"
+          className="text-xs text-muted transition-colors hover:text-content"
         >
           Alterar foto
         </button>
@@ -86,7 +86,7 @@ export function AvatarPicker({ name, defaultValue }: AvatarPickerProps) {
           <button
             type="button"
             onClick={() => setPreview('')}
-            className="inline-flex items-center gap-1 text-xs text-ink-600 transition-colors hover:text-falcao-300"
+            className="inline-flex items-center gap-1 text-xs text-subtle transition-colors hover:text-falcao-700 dark:text-falcao-300"
           >
             <Trash2 className="size-3" />
             Remover
@@ -94,13 +94,13 @@ export function AvatarPicker({ name, defaultValue }: AvatarPickerProps) {
         ) : null}
       </div>
 
-      <p className="max-w-xs text-center text-xs leading-relaxed text-ink-600">
+      <p className="max-w-xs text-center text-xs leading-relaxed text-subtle">
         Sua foto aparece para o barbeiro no dia do atendimento, o que facilita a identificação na
         chegada.
       </p>
 
       {error ? (
-        <p role="alert" className="text-xs text-falcao-300">
+        <p role="alert" className="text-xs text-falcao-700 dark:text-falcao-300">
           {error}
         </p>
       ) : null}

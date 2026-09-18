@@ -19,7 +19,7 @@ export function SubscribeButton({ planId, label = 'Assinar plano' }: { planId: s
       {state.message ? (
         <p
           role="status"
-          className={`text-xs ${state.status === 'error' ? 'text-falcao-300' : 'text-emerald-300'}`}
+          className={`text-xs ${state.status === 'error' ? 'text-falcao-700 dark:text-falcao-300' : 'text-emerald-700 dark:text-emerald-300'}`}
         >
           {state.message}
         </p>
@@ -41,7 +41,7 @@ export function CancelSubscriptionButton({ subscriptionId }: { subscriptionId: s
       {state.message ? (
         <p
           role="status"
-          className={`text-xs ${state.status === 'error' ? 'text-falcao-300' : 'text-ink-400'}`}
+          className={`text-xs ${state.status === 'error' ? 'text-falcao-700 dark:text-falcao-300' : 'text-muted'}`}
         >
           {state.message}
         </p>

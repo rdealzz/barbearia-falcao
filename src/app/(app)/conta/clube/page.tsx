@@ -40,8 +40,8 @@ export default async function ClubPage() {
   return (
     <div className="space-y-10">
       <header>
-        <h1 className="font-display text-3xl text-white">Clube Falcão</h1>
-        <p className="mt-1 text-sm text-ink-500">
+        <h1 className="font-display text-3xl text-content">Clube Falcão</h1>
+        <p className="mt-1 text-sm text-muted">
           Vantagens exclusivas para clientes da casa. {plan ? `Seu plano: ${plan.name}.` : ''}
         </p>
       </header>
@@ -50,36 +50,36 @@ export default async function ClubPage() {
 
       <section className="grid gap-4 lg:grid-cols-2">
         <div className="surface-card rounded-3xl p-6">
-          <p className="flex items-center gap-2 font-medium text-white">
+          <p className="flex items-center gap-2 font-medium text-content">
             <Ticket className="size-4 text-falcao-400" />
             Como resgatar um cupom
           </p>
-          <ol className="mt-4 space-y-3 text-sm text-ink-400">
+          <ol className="mt-4 space-y-3 text-sm text-muted">
             {howTo.map((step, index) => (
               <li key={step} className="flex gap-3">
-                <span className="grid size-5 shrink-0 place-items-center rounded-full bg-white/[0.05] text-[10px] text-ink-300">
+                <span className="grid size-5 shrink-0 place-items-center rounded-full bg-tint-strong text-[10px] text-muted">
                   {index + 1}
                 </span>
                 {step}
               </li>
             ))}
           </ol>
-          <p className="mt-4 text-xs leading-relaxed text-ink-600">
+          <p className="mt-4 text-xs leading-relaxed text-subtle">
             O prazo de expiração começa a contar a partir do resgate. Depois de expirado, não é
             possível utilizar o mesmo cupom.
           </p>
         </div>
 
         <div className="surface-card rounded-3xl p-6">
-          <p className="flex items-center gap-2 font-medium text-white">
+          <p className="flex items-center gap-2 font-medium text-content">
             <HelpCircle className="size-4 text-falcao-400" />
             Perguntas frequentes
           </p>
           <dl className="mt-4 space-y-4">
             {faq.map((item) => (
               <div key={item.question}>
-                <dt className="text-sm font-medium text-ink-200">{item.question}</dt>
-                <dd className="mt-1 text-sm leading-relaxed text-ink-500">{item.answer}</dd>
+                <dt className="text-sm font-medium text-content">{item.question}</dt>
+                <dd className="mt-1 text-sm leading-relaxed text-muted">{item.answer}</dd>
               </div>
             ))}
           </dl>
@@ -87,7 +87,7 @@ export default async function ClubPage() {
       </section>
 
       {plan ? (
-        <p className="text-xs text-ink-600">
+        <p className="text-xs text-subtle">
           Assinantes do {plan.name} ({formatCurrency(plan.priceInCents)}/mês) têm acesso aos cupons
           exclusivos do seu nível.
         </p>

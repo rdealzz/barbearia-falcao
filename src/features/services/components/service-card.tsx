@@ -16,7 +16,7 @@ export function ServiceCard({ service, className, compact = false }: ServiceCard
   return (
     <article
       className={cn(
-        'group surface-card relative flex h-full flex-col gap-5 rounded-3xl p-6 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:border-white/20',
+        'group surface-card relative flex h-full flex-col gap-5 rounded-3xl p-6 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:border-line-strong',
         className,
       )}
     >
@@ -27,8 +27,8 @@ export function ServiceCard({ service, className, compact = false }: ServiceCard
 
       <div className="flex items-start justify-between gap-4">
         <div className="space-y-2">
-          <h3 className="font-display text-xl text-white">{service.name}</h3>
-          <p className="text-sm leading-relaxed text-ink-400">
+          <h3 className="font-display text-xl text-content">{service.name}</h3>
+          <p className="text-sm leading-relaxed text-muted">
             {compact ? service.shortDescription : service.description}
           </p>
         </div>
@@ -40,7 +40,7 @@ export function ServiceCard({ service, className, compact = false }: ServiceCard
           {service.highlights.map((highlight) => (
             <li
               key={highlight}
-              className="rounded-full border border-white/[0.08] bg-white/[0.03] px-3 py-1 text-xs text-ink-400"
+              className="rounded-full border border-line bg-tint px-3 py-1 text-xs text-muted"
             >
               {highlight}
             </li>
@@ -48,12 +48,12 @@ export function ServiceCard({ service, className, compact = false }: ServiceCard
         </ul>
       ) : null}
 
-      <div className="mt-auto flex items-end justify-between gap-4 border-t border-white/[0.06] pt-5">
+      <div className="mt-auto flex items-end justify-between gap-4 border-t border-line pt-5">
         <div>
-          <p className="font-display text-2xl text-white">
+          <p className="font-display text-2xl text-content">
             {formatCurrency(service.priceInCents)}
           </p>
-          <p className="mt-1 flex items-center gap-1.5 text-xs text-ink-500">
+          <p className="mt-1 flex items-center gap-1.5 text-xs text-muted">
             <Clock className="size-3.5" />
             {formatDuration(service.durationInMinutes)}
           </p>

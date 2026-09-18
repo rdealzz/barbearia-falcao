@@ -8,7 +8,7 @@ import type { Barber } from '@/types';
 
 export function BarbersPreview({ barbers }: { barbers: Barber[] }) {
   return (
-    <Section className="bg-ink-900/30">
+    <Section className="bg-canvas-subtle">
       <Container>
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <SectionHeading

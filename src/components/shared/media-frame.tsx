@@ -33,7 +33,7 @@ export function MediaFrame({
   return (
     <div
       className={cn(
-        'relative isolate overflow-hidden rounded-3xl bg-gradient-to-br from-ink-850 via-ink-900 to-ink-950',
+        'relative isolate overflow-hidden rounded-3xl bg-gradient-to-br from-canvas-subtle via-surface to-canvas',
         className,
       )}
     >
@@ -57,7 +57,7 @@ export function MediaFrame({
             }}
             aria-hidden
           />
-          <span className="relative px-4 text-center text-xs uppercase tracking-[0.3em] text-ink-600">
+          <span className="relative px-4 text-center text-xs uppercase tracking-[0.3em] text-subtle">
             {fallbackLabel ?? 'Barbearia Falcão'}
           </span>
         </div>

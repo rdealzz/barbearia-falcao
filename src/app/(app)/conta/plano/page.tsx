@@ -39,8 +39,8 @@ export default async function PlanPage({ searchParams }: PageProps) {
   return (
     <div className="space-y-10">
       <header>
-        <h1 className="font-display text-3xl text-white">Plano</h1>
-        <p className="mt-1 text-sm text-ink-500">
+        <h1 className="font-display text-3xl text-content">Plano</h1>
+        <p className="mt-1 text-sm text-muted">
           Acompanhe sua assinatura, o uso do ciclo e o histórico de cobranças.
         </p>
       </header>
@@ -53,18 +53,18 @@ export default async function PlanPage({ searchParams }: PageProps) {
                 <Badge variant={subscription.status === 'active' ? 'success' : 'warning'}>
                   {subscription.status === 'active' ? 'Assinatura ativa' : 'Pagamento pendente'}
                 </Badge>
-                <p className="mt-3 font-display text-3xl text-white">{plan.name}</p>
-                <p className="mt-1 text-sm text-ink-400">
+                <p className="mt-3 font-display text-3xl text-content">{plan.name}</p>
+                <p className="mt-1 text-sm text-muted">
                   {formatCurrency(plan.priceInCents)}/mês · {plan.tagline}
                 </p>
               </div>
 
               <div className="text-right">
-                <p className="flex items-center justify-end gap-2 text-xs uppercase tracking-[0.18em] text-ink-600">
+                <p className="flex items-center justify-end gap-2 text-xs uppercase tracking-[0.18em] text-subtle">
                   <CalendarClock className="size-3.5" />
                   Próxima cobrança
                 </p>
-                <p className="mt-2 font-display text-xl text-white">
+                <p className="mt-2 font-display text-xl text-content">
                   {subscription.nextChargeAt
                     ? formatShortDate(subscription.nextChargeAt.slice(0, 10))
                     : '—'}
@@ -90,7 +90,7 @@ export default async function PlanPage({ searchParams }: PageProps) {
             <Separator className="my-6" />
 
             <div className="flex flex-wrap items-center justify-between gap-4">
-              <p className="text-xs leading-relaxed text-ink-600">
+              <p className="text-xs leading-relaxed text-subtle">
                 Ciclo atual: {formatShortDate(subscription.currentPeriodStart.slice(0, 10))} a{' '}
                 {formatShortDate(subscription.currentPeriodEnd.slice(0, 10))}
               </p>
@@ -99,8 +99,8 @@ export default async function PlanPage({ searchParams }: PageProps) {
           </section>
 
           <section className="space-y-4">
-            <h2 className="font-display text-xl text-white">Histórico de cobranças</h2>
-            <div className="surface-card divide-y divide-white/[0.06] overflow-hidden rounded-3xl">
+            <h2 className="font-display text-xl text-content">Histórico de cobranças</h2>
+            <div className="surface-card divide-y divide-line overflow-hidden rounded-3xl">
               {invoices.map((invoice) => {
                 const status = invoiceStatus[invoice.status];
                 return (
@@ -109,7 +109,7 @@ export default async function PlanPage({ searchParams }: PageProps) {
                     className="flex flex-wrap items-center justify-between gap-4 p-5"
                   >
                     <div className="flex items-center gap-3">
-                      <span className="grid size-9 place-items-center rounded-xl border border-white/[0.08] bg-white/[0.03] text-ink-400">
+                      <span className="grid size-9 place-items-center rounded-xl border border-line bg-tint text-muted">
                         {invoice.method === 'pix' ? (
                           <QrCode className="size-4" />
                         ) : invoice.method === 'boleto' ? (
@@ -119,10 +119,10 @@ export default async function PlanPage({ searchParams }: PageProps) {
                         )}
                       </span>
                       <div>
-                        <p className="text-sm text-white">
+                        <p className="text-sm text-content">
                           {formatCurrency(invoice.amountInCents)}
                         </p>
-                        <p className="text-xs text-ink-500">
+                        <p className="text-xs text-muted">
                           {invoice.method ? methodLabels[invoice.method] : 'Método não informado'} ·{' '}
                           {formatShortDate(invoice.dueDate.slice(0, 10))}
                         </p>
@@ -138,8 +138,8 @@ export default async function PlanPage({ searchParams }: PageProps) {
       ) : (
         <>
           <section className="surface-card rounded-3xl p-7">
-            <p className="font-medium text-white">Você ainda não assinou um plano</p>
-            <p className="mt-1 text-sm text-ink-400">
+            <p className="font-medium text-content">Você ainda não assinou um plano</p>
+            <p className="mt-1 text-sm text-muted">
               Escolha abaixo e comece a aproveitar os benefícios do Clube Falcão.
             </p>
           </section>
@@ -152,7 +152,7 @@ export default async function PlanPage({ searchParams }: PageProps) {
                   ctaHref={`/planos/${item.slug}`}
                   ctaLabel="Ver detalhes"
                   className={
-                    preSelected?.id === item.id ? 'ring-2 ring-falcao-500/50 ring-offset-2 ring-offset-ink-950' : ''
+                    preSelected?.id === item.id ? 'ring-2 ring-falcao-500/50 ring-offset-2 ring-offset-canvas' : ''
                   }
                 />
                 <SubscribeButton planId={item.id} />
@@ -160,7 +160,7 @@ export default async function PlanPage({ searchParams }: PageProps) {
             ))}
           </section>
 
-          <p className="text-xs leading-relaxed text-ink-600">
+          <p className="text-xs leading-relaxed text-subtle">
             A cobrança recorrente (Pix, cartão ou boleto), a renovação automática e os webhooks de
             status serão processados pelo ASAAS assim que a integração de pagamentos for ativada.
           </p>
@@ -182,19 +182,19 @@ function UsageMeter({
   if (total === null) {
     return (
       <div>
-        <p className="text-xs uppercase tracking-[0.18em] text-ink-600">{label}</p>
-        <p className="mt-2 font-display text-2xl text-white">Ilimitado</p>
-        <p className="mt-1 text-xs text-ink-500">{used} utilizados neste ciclo</p>
+        <p className="text-xs uppercase tracking-[0.18em] text-subtle">{label}</p>
+        <p className="mt-2 font-display text-2xl text-content">Ilimitado</p>
+        <p className="mt-1 text-xs text-muted">{used} utilizados neste ciclo</p>
       </div>
     );
   }
 
   return (
     <div>
-      <p className="text-xs uppercase tracking-[0.18em] text-ink-600">{label}</p>
-      <p className="mt-2 font-display text-2xl text-white">
+      <p className="text-xs uppercase tracking-[0.18em] text-subtle">{label}</p>
+      <p className="mt-2 font-display text-2xl text-content">
         {Math.max(0, total - used)}
-        <span className="text-base text-ink-500"> de {total} restantes</span>
+        <span className="text-base text-muted"> de {total} restantes</span>
       </p>
       <Progress value={used} max={total} className="mt-3" label={label} />
     </div>

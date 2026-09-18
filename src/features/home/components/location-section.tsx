@@ -23,12 +23,12 @@ export function LocationSection() {
 
             <Reveal delay={0.1} className="mt-10 space-y-6">
               <div className="flex gap-4">
-                <span className="grid size-10 shrink-0 place-items-center rounded-2xl border border-white/[0.08] bg-white/[0.03] text-falcao-400">
+                <span className="grid size-10 shrink-0 place-items-center rounded-2xl border border-line bg-tint text-falcao-400">
                   <MapPin className="size-4" />
                 </span>
                 <div>
-                  <p className="text-sm font-medium text-white">Endereço</p>
-                  <p className="mt-1 text-sm text-ink-400">
+                  <p className="text-sm font-medium text-content">Endereço</p>
+                  <p className="mt-1 text-sm text-muted">
                     {address.street}, {address.number} — {address.district}
                     <br />
                     {address.city}/{address.state}
@@ -37,12 +37,12 @@ export function LocationSection() {
               </div>
 
               <div className="flex gap-4">
-                <span className="grid size-10 shrink-0 place-items-center rounded-2xl border border-white/[0.08] bg-white/[0.03] text-falcao-400">
+                <span className="grid size-10 shrink-0 place-items-center rounded-2xl border border-line bg-tint text-falcao-400">
                   <Clock className="size-4" />
                 </span>
                 <div>
-                  <p className="text-sm font-medium text-white">Horário de funcionamento</p>
-                  <ul className="mt-1 space-y-0.5 text-sm text-ink-400">
+                  <p className="text-sm font-medium text-content">Horário de funcionamento</p>
+                  <ul className="mt-1 space-y-0.5 text-sm text-muted">
                     {openingHours.map((entry) => (
                       <li key={entry.label}>
                         {entry.label}: {entry.value}
@@ -70,7 +70,7 @@ export function LocationSection() {
           </div>
 
           <Reveal delay={0.15}>
-            <div className="overflow-hidden rounded-3xl border border-white/10">
+            <div className="overflow-hidden rounded-3xl border border-line">
               <iframe
                 src={mapsEmbed}
                 title="Mapa da Barbearia Falcão"

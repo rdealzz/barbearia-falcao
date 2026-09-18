@@ -3,6 +3,7 @@ import { ArrowRight, CalendarDays, CalendarPlus, CreditCard, Scissors, Ticket } 
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { EmptyState } from '@/components/ui/empty-state';
+import { ClubBanner } from '@/features/club/components/club-banner';
 import { StatTile } from '@/features/account/components/stat-tile';
 import { AppointmentCard } from '@/features/account/components/appointment-card';
 import { requireUser } from '@/lib/auth/current-user';
@@ -44,8 +45,8 @@ export default async function AccountHomePage() {
     <div className="space-y-10">
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <p className="text-sm text-ink-500">Olá, {user.name.split(' ')[0]}</p>
-          <h1 className="mt-1 font-display text-3xl text-white">Sua conta</h1>
+          <p className="text-sm text-muted">Olá, {user.name.split(' ')[0]}</p>
+          <h1 className="mt-1 font-display text-3xl text-content">Sua conta</h1>
         </div>
         <Button asChild>
           <Link href="/agendar">
@@ -86,13 +87,15 @@ export default async function AccountHomePage() {
         />
       </section>
 
+      <ClubBanner />
+
       {plan && subscription ? (
         <section className="surface-card rounded-3xl p-6">
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
-              <p className="text-xs uppercase tracking-[0.2em] text-ink-600">Seu plano</p>
-              <p className="mt-2 font-display text-2xl text-white">{plan.name}</p>
-              <p className="mt-1 text-sm text-ink-400">
+              <p className="text-xs uppercase tracking-[0.2em] text-subtle">Seu plano</p>
+              <p className="mt-2 font-display text-2xl text-content">{plan.name}</p>
+              <p className="mt-1 text-sm text-muted">
                 {formatCurrency(plan.priceInCents)}/mês ·{' '}
                 {subscription.autoRenew ? 'Renovação automática' : 'Sem renovação'}
               </p>
@@ -107,7 +110,7 @@ export default async function AccountHomePage() {
 
           {plan.haircutsPerCycle !== null ? (
             <div className="mt-6 space-y-2">
-              <div className="flex justify-between text-xs text-ink-500">
+              <div className="flex justify-between text-xs text-muted">
                 <span>Cortes usados no ciclo</span>
                 <span>
                   {subscription.usage.haircutsUsed} de {plan.haircutsPerCycle}
@@ -120,7 +123,7 @@ export default async function AccountHomePage() {
               />
             </div>
           ) : (
-            <p className="mt-6 rounded-2xl bg-white/[0.03] px-4 py-3 text-sm text-ink-400">
+            <p className="mt-6 rounded-2xl bg-tint px-4 py-3 text-sm text-muted">
               Cortes ilimitados neste ciclo. Agende quantas vezes precisar.
             </p>
           )}
@@ -128,8 +131,8 @@ export default async function AccountHomePage() {
       ) : (
         <section className="surface-card flex flex-wrap items-center justify-between gap-4 rounded-3xl p-6">
           <div>
-            <p className="font-medium text-white">Você ainda não assinou um plano</p>
-            <p className="mt-1 text-sm text-ink-400">
+            <p className="font-medium text-content">Você ainda não assinou um plano</p>
+            <p className="mt-1 text-sm text-muted">
               Contrate e aproveite cortes inclusos, desconto e prioridade na agenda.
             </p>
           </div>
@@ -144,10 +147,10 @@ export default async function AccountHomePage() {
 
       <section className="space-y-4">
         <div className="flex items-center justify-between">
-          <h2 className="font-display text-xl text-white">Próximos agendamentos</h2>
+          <h2 className="font-display text-xl text-content">Próximos agendamentos</h2>
           <Link
             href="/conta/agendamentos"
-            className="text-sm text-ink-500 transition-colors hover:text-white"
+            className="text-sm text-muted transition-colors hover:text-content"
           >
             Ver tudo
           </Link>

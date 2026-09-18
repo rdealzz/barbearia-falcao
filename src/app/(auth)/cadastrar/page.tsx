@@ -32,7 +32,7 @@ export default async function RegisterPage({ searchParams }: PageProps) {
           Já tem uma conta?{' '}
           <Link
             href={redirectTo ? `/entrar?redirect=${redirectTo}` : '/entrar'}
-            className="font-medium text-falcao-300 transition-colors hover:text-falcao-200"
+            className="font-medium text-falcao-700 dark:text-falcao-300 transition-colors hover:text-falcao-700 dark:text-falcao-200"
           >
             Entrar
           </Link>

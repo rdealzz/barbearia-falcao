@@ -22,7 +22,7 @@ export function SlotPicker({ slots, value, onChange, loading = false }: SlotPick
   if (loading) {
     return (
       <div className="space-y-6">
-        <p className="flex items-center gap-2 text-sm text-ink-500">
+        <p className="flex items-center gap-2 text-sm text-muted">
           <Loader2 className="size-4 animate-spin" />
           Consultando a agenda…
         </p>
@@ -37,10 +37,10 @@ export function SlotPicker({ slots, value, onChange, loading = false }: SlotPick
 
   if (slots.length === 0) {
     return (
-      <div className="flex flex-col items-center gap-3 rounded-2xl border border-dashed border-white/10 py-12 text-center">
-        <CalendarX2 className="size-6 text-ink-600" />
-        <p className="text-sm text-ink-400">Este barbeiro não atende na data escolhida.</p>
-        <p className="text-xs text-ink-600">Selecione outro dia para ver os horários livres.</p>
+      <div className="flex flex-col items-center gap-3 rounded-2xl border border-dashed border-line py-12 text-center">
+        <CalendarX2 className="size-6 text-subtle" />
+        <p className="text-sm text-muted">Este barbeiro não atende na data escolhida.</p>
+        <p className="text-xs text-subtle">Selecione outro dia para ver os horários livres.</p>
       </div>
     );
   }
@@ -60,14 +60,14 @@ export function SlotPicker({ slots, value, onChange, loading = false }: SlotPick
   return (
     <div className="space-y-6">
       {!hasAvailable ? (
-        <p className="rounded-2xl border border-amber-500/20 bg-amber-500/[0.06] px-4 py-3 text-sm text-amber-200">
+        <p className="rounded-2xl border border-amber-500/20 bg-amber-500/10 px-4 py-3 text-sm text-amber-700 dark:text-amber-200">
           Todos os horários deste dia já foram preenchidos. Tente outra data.
         </p>
       ) : null}
 
       {groups.map((group) => (
         <div key={group.label}>
-          <p className="mb-3 text-xs font-medium uppercase tracking-[0.2em] text-ink-600">
+          <p className="mb-3 text-xs font-medium uppercase tracking-[0.2em] text-subtle">
             {group.label}
           </p>
           <div className="grid grid-cols-3 gap-2 sm:grid-cols-5">
@@ -93,9 +93,9 @@ export function SlotPicker({ slots, value, onChange, loading = false }: SlotPick
                   'h-11 rounded-xl border text-sm transition-all duration-200',
                   value === slot.time
                     ? 'border-falcao-500/60 bg-falcao-600 text-white'
-                    : 'border-white/[0.08] bg-white/[0.02] text-ink-200 hover:border-white/25 hover:bg-white/[0.06]',
+                    : 'border-line bg-tint text-content hover:border-line-strong hover:bg-tint-strong',
                   !slot.available &&
-                    'cursor-not-allowed border-white/[0.04] bg-transparent text-ink-700 line-through hover:border-white/[0.04] hover:bg-transparent',
+                    'cursor-not-allowed border-line bg-transparent text-subtle line-through hover:border-line-strong hover:bg-transparent',
                 )}
               >
                 {slot.time}

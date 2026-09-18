@@ -23,8 +23,8 @@ export function Hero() {
           className="size-full rounded-none"
           imageClassName="scale-105 object-center opacity-45"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-ink-950/70 via-ink-950/85 to-ink-950" />
-        <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-ink-950 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-canvas/70 via-canvas/85 to-canvas" />
+        <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-canvas to-transparent" />
         <div
           className="absolute -left-24 top-1/3 size-[30rem] rounded-full bg-falcao-700/20 blur-[120px]"
           aria-hidden
@@ -38,7 +38,7 @@ export function Hero() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={transition}
-              className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-1.5 text-xs font-medium tracking-wide text-ink-300"
+              className="inline-flex items-center gap-2 rounded-full border border-line bg-tint px-4 py-1.5 text-xs font-medium tracking-wide text-muted"
             >
               <Scissors className="size-3.5 text-falcao-400" />
               Desde {siteConfig.foundedIn} em Curitiba · {siteConfig.address.district}
@@ -48,20 +48,20 @@ export function Hero() {
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ ...transition, delay: 0.08 }}
-              className="mt-7 text-balance text-4xl font-semibold leading-[1.05] text-white sm:text-6xl lg:text-7xl"
+              className="mt-7 text-balance text-4xl font-semibold leading-[1.05] text-content sm:text-6xl lg:text-7xl"
             >
-              Está na cara a diferença entre{' '}
-              <span className="text-gradient-metal">homens</span> e meninos
+              Está na cara quando o corte é{' '}
+              <span className="text-gradient-metal">bem feito</span>
             </motion.h1>
 
             <motion.p
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ ...transition, delay: 0.16 }}
-              className="mt-6 max-w-xl text-lg leading-relaxed text-ink-400"
+              className="mt-6 max-w-xl text-lg leading-relaxed text-muted"
             >
-              Corte, barba e cuidado masculino com hora marcada. Barbeiros especialistas,
-              ambiente pensado no detalhe e uma agenda que respeita o seu tempo.
+              Corte, barba e cuidado para todas as idades, com hora marcada. Barbeiros
+              especialistas, ambiente pensado no detalhe e uma agenda que respeita o seu tempo.
             </motion.p>
 
             <motion.div
@@ -92,7 +92,7 @@ export function Hero() {
                   {['R', 'L', 'D', 'M'].map((letter) => (
                     <span
                       key={letter}
-                      className="grid size-9 place-items-center rounded-full border-2 border-ink-950 bg-ink-800 text-xs font-semibold text-ink-300"
+                      className="grid size-9 place-items-center rounded-full border-2 border-canvas bg-tint-strong text-xs font-semibold text-muted"
                     >
                       {letter}
                     </span>
@@ -104,17 +104,21 @@ export function Hero() {
                       <Star key={index} className="size-3.5 fill-current" />
                     ))}
                   </div>
-                  <p className="mt-0.5 text-xs text-ink-500">
-                    +1.000 clientes atendidos com nota 5
+                  <p className="mt-0.5 text-xs text-muted">
+                    {siteConfig.reputation.rating.toLocaleString('pt-BR')} no{' '}
+                    {siteConfig.reputation.source} ·{' '}
+                    {siteConfig.reputation.reviewsCount} avaliações
                   </p>
                 </div>
               </div>
 
-              <div className="h-10 w-px bg-white/10" aria-hidden />
+              <div className="h-10 w-px bg-line" aria-hidden />
 
               <div>
-                <p className="font-display text-2xl text-white">7 anos</p>
-                <p className="text-xs text-ink-500">de tradição em {siteConfig.address.district}</p>
+                <p className="font-display text-2xl text-content">
+                  {new Date().getFullYear() - siteConfig.foundedIn} anos
+                </p>
+                <p className="text-xs text-muted">de tradição em {siteConfig.address.district}</p>
               </div>
             </motion.div>
           </div>
@@ -132,10 +136,10 @@ export function Hero() {
               sizes="(max-width: 1024px) 0px, 40vw"
               priority
             />
-            <div className="glass absolute -bottom-6 -left-8 w-56 rounded-2xl border border-white/10 p-4">
-              <p className="text-xs uppercase tracking-[0.2em] text-ink-500">Próximo horário</p>
-              <p className="mt-1 font-display text-xl text-white">Hoje, 16:00</p>
-              <p className="mt-1 text-xs text-ink-400">Corte + Barba · 1h10</p>
+            <div className="glass absolute -bottom-6 -left-8 w-56 rounded-2xl border border-line p-4">
+              <p className="text-xs uppercase tracking-[0.2em] text-muted">Próximo horário</p>
+              <p className="mt-1 font-display text-xl text-content">Hoje, 16:00</p>
+              <p className="mt-1 text-xs text-muted">Corte + Barba · 1h10</p>
             </div>
           </motion.div>
         </div>

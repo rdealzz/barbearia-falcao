@@ -14,32 +14,32 @@ const weekdayShift = (start: string, end: string) => [{ start, end }];
 
 const standardHours: WorkingHours[] = [
   { weekday: 0, shifts: [] },
-  { weekday: 1, shifts: weekdayShift('09:00', '20:00') },
-  { weekday: 2, shifts: weekdayShift('09:00', '20:00') },
-  { weekday: 3, shifts: weekdayShift('09:00', '20:00') },
-  { weekday: 4, shifts: weekdayShift('09:00', '20:00') },
-  { weekday: 5, shifts: weekdayShift('09:00', '20:00') },
-  { weekday: 6, shifts: weekdayShift('09:00', '18:00') },
+  { weekday: 1, shifts: weekdayShift('08:30', '20:30') },
+  { weekday: 2, shifts: weekdayShift('08:30', '20:30') },
+  { weekday: 3, shifts: weekdayShift('08:30', '20:30') },
+  { weekday: 4, shifts: weekdayShift('08:30', '20:30') },
+  { weekday: 5, shifts: weekdayShift('08:30', '20:30') },
+  { weekday: 6, shifts: weekdayShift('08:30', '18:00') },
 ];
 
 const lateHours: WorkingHours[] = [
   { weekday: 0, shifts: [] },
   { weekday: 1, shifts: [] },
-  { weekday: 2, shifts: weekdayShift('11:00', '21:00') },
-  { weekday: 3, shifts: weekdayShift('11:00', '21:00') },
-  { weekday: 4, shifts: weekdayShift('11:00', '21:00') },
-  { weekday: 5, shifts: weekdayShift('11:00', '21:00') },
-  { weekday: 6, shifts: weekdayShift('09:00', '18:00') },
+  { weekday: 2, shifts: weekdayShift('11:00', '20:30') },
+  { weekday: 3, shifts: weekdayShift('11:00', '20:30') },
+  { weekday: 4, shifts: weekdayShift('11:00', '20:30') },
+  { weekday: 5, shifts: weekdayShift('11:00', '20:30') },
+  { weekday: 6, shifts: weekdayShift('08:30', '18:00') },
 ];
 
 const splitHours: WorkingHours[] = [
   { weekday: 0, shifts: [] },
-  { weekday: 1, shifts: [{ start: '09:00', end: '13:00' }, { start: '14:30', end: '19:00' }] },
-  { weekday: 2, shifts: [{ start: '09:00', end: '13:00' }, { start: '14:30', end: '19:00' }] },
-  { weekday: 3, shifts: [{ start: '09:00', end: '13:00' }, { start: '14:30', end: '19:00' }] },
-  { weekday: 4, shifts: [{ start: '09:00', end: '13:00' }, { start: '14:30', end: '19:00' }] },
-  { weekday: 5, shifts: [{ start: '09:00', end: '13:00' }, { start: '14:30', end: '20:00' }] },
-  { weekday: 6, shifts: weekdayShift('09:00', '17:00') },
+  { weekday: 1, shifts: [{ start: '08:30', end: '13:00' }, { start: '14:30', end: '20:30' }] },
+  { weekday: 2, shifts: [{ start: '08:30', end: '13:00' }, { start: '14:30', end: '20:30' }] },
+  { weekday: 3, shifts: [{ start: '08:30', end: '13:00' }, { start: '14:30', end: '20:30' }] },
+  { weekday: 4, shifts: [{ start: '08:30', end: '13:00' }, { start: '14:30', end: '20:30' }] },
+  { weekday: 5, shifts: [{ start: '08:30', end: '13:00' }, { start: '14:30', end: '20:30' }] },
+  { weekday: 6, shifts: weekdayShift('08:30', '17:00') },
 ];
 
 const allServices = [
@@ -53,8 +53,10 @@ const allServices = [
 ];
 
 /**
- * Dados de demonstração. Substituir pelos barbeiros reais da casa
- * (nome, foto, especialidades e Instagram) antes do lançamento.
+ * Barbeiros de demonstração: nome, bio, foto e especialidades precisam ser
+ * substituídos pelos profissionais reais da casa antes do lançamento.
+ * `rating`/`reviewsCount` ficam zerados de propósito — a única avaliação
+ * pública confirmada é a da barbearia (ver siteConfig.reputation).
  */
 export const barbersSeed: Barber[] = [
   {
@@ -69,8 +71,8 @@ export const barbersSeed: Barber[] = [
     specialties: ['Degradê', 'Navalha', 'Barba desenhada', 'Visagismo'],
     experienceSince: 2012,
     instagramUrl: 'https://www.instagram.com/barbeariia_falcao/',
-    rating: 5,
-    reviewsCount: 412,
+    rating: 0,
+    reviewsCount: 0,
     isActive: true,
     acceptsNewClients: true,
     serviceIds: [...allServices, 'svc_platinado'],
@@ -90,8 +92,8 @@ export const barbersSeed: Barber[] = [
     specialties: ['Corte social', 'Texturizado', 'Tesoura', 'Sobrancelha'],
     experienceSince: 2016,
     instagramUrl: 'https://www.instagram.com/barbeariia_falcao/',
-    rating: 4.9,
-    reviewsCount: 268,
+    rating: 0,
+    reviewsCount: 0,
     isActive: true,
     acceptsNewClients: true,
     serviceIds: allServices,
@@ -111,8 +113,8 @@ export const barbersSeed: Barber[] = [
     specialties: ['Platinado', 'Luzes', 'Coloração', 'Reconstrução'],
     experienceSince: 2018,
     instagramUrl: 'https://www.instagram.com/barbeariia_falcao/',
-    rating: 4.9,
-    reviewsCount: 193,
+    rating: 0,
+    reviewsCount: 0,
     isActive: true,
     acceptsNewClients: true,
     serviceIds: [...allServices, 'svc_platinado'],
@@ -132,8 +134,8 @@ export const barbersSeed: Barber[] = [
     specialties: ['Infantil', 'Clássico', 'Pezinho', 'Barba'],
     experienceSince: 2019,
     instagramUrl: 'https://www.instagram.com/barbeariia_falcao/',
-    rating: 4.8,
-    reviewsCount: 151,
+    rating: 0,
+    reviewsCount: 0,
     isActive: true,
     acceptsNewClients: true,
     serviceIds: allServices,

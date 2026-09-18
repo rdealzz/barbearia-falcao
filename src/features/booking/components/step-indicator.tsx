@@ -25,17 +25,17 @@ export function StepIndicator({ steps, current, onSelect }: StepIndicatorProps) 
               onClick={() => onSelect?.(index)}
               className={cn(
                 'flex items-center gap-2 rounded-full px-3 py-1.5 text-xs transition-colors',
-                active && 'bg-white/[0.07] text-white',
-                done && 'text-falcao-300 hover:bg-white/[0.04]',
-                !done && !active && 'text-ink-600',
+                active && 'bg-tint-strong text-content',
+                done && 'text-falcao-700 dark:text-falcao-300 hover:bg-tint',
+                !done && !active && 'text-subtle',
               )}
             >
               <span
                 className={cn(
                   'grid size-5 place-items-center rounded-full text-[10px] font-semibold',
                   active && 'bg-falcao-600 text-white',
-                  done && 'bg-falcao-600/20 text-falcao-300',
-                  !done && !active && 'bg-white/[0.05] text-ink-600',
+                  done && 'bg-falcao-600/20 text-falcao-700 dark:text-falcao-300',
+                  !done && !active && 'bg-tint-strong text-subtle',
                 )}
               >
                 {done ? <Check className="size-3" /> : index + 1}
@@ -43,7 +43,7 @@ export function StepIndicator({ steps, current, onSelect }: StepIndicatorProps) 
               <span className="whitespace-nowrap">{step}</span>
             </button>
             {index < steps.length - 1 ? (
-              <span className="relative h-px w-6 bg-white/10">
+              <span className="relative h-px w-6 bg-line">
                 {done ? (
                   <motion.span
                     layoutId={`step-line-${index}`}

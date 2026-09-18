@@ -51,7 +51,7 @@ export default async function BarberPage({ params }: PageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(barberJsonLd(barber)) }}
       />
 
-      <Section className="pt-36 pb-12">
+      <Section spacing="pageTight">
         <Container>
           <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
             <Reveal>
@@ -68,18 +68,22 @@ export default async function BarberPage({ params }: PageProps) {
             <Reveal delay={0.1} className="space-y-8">
               <div className="space-y-4">
                 <p className="text-xs uppercase tracking-[0.24em] text-falcao-400">{barber.role}</p>
-                <h1 className="font-display text-4xl text-white sm:text-5xl">{barber.name}</h1>
-                <p className="text-lg text-ink-300">{barber.headline}</p>
+                <h1 className="font-display text-4xl text-content sm:text-5xl">{barber.name}</h1>
+                <p className="text-lg text-muted">{barber.headline}</p>
               </div>
 
               <div className="flex flex-wrap items-center gap-6">
-                <span className="flex items-center gap-2 text-sm text-ink-300">
-                  <Star className="size-4 fill-falcao-400 text-falcao-400" />
-                  {barber.rating.toFixed(1)}
-                  <span className="text-ink-600">({barber.reviewsCount} avaliações)</span>
-                </span>
-                <span className="h-6 w-px bg-white/10" aria-hidden />
-                <span className="text-sm text-ink-300">
+                {barber.reviewsCount > 0 ? (
+                  <>
+                    <span className="flex items-center gap-2 text-sm text-muted">
+                      <Star className="size-4 fill-falcao-400 text-falcao-400" />
+                      {barber.rating.toFixed(1)}
+                      <span className="text-subtle">({barber.reviewsCount} avaliações)</span>
+                    </span>
+                    <span className="h-6 w-px bg-line" aria-hidden />
+                  </>
+                ) : null}
+                <span className="text-sm text-muted">
                   {yearsOfExperience} anos de profissão
                 </span>
                 {barber.acceptsNewClients ? (
@@ -89,10 +93,10 @@ export default async function BarberPage({ params }: PageProps) {
                 )}
               </div>
 
-              <p className="max-w-2xl leading-relaxed text-ink-400">{barber.bio}</p>
+              <p className="max-w-2xl leading-relaxed text-muted">{barber.bio}</p>
 
               <div className="space-y-3">
-                <p className="text-xs font-medium uppercase tracking-[0.2em] text-ink-600">
+                <p className="text-xs font-medium uppercase tracking-[0.2em] text-subtle">
                   Especialidades
                 </p>
                 <ul className="flex flex-wrap gap-2">
@@ -105,7 +109,7 @@ export default async function BarberPage({ params }: PageProps) {
               </div>
 
               <div className="surface-card rounded-3xl p-6">
-                <p className="flex items-center gap-2 text-sm font-medium text-white">
+                <p className="flex items-center gap-2 text-sm font-medium text-content">
                   <CalendarClock className="size-4 text-falcao-400" />
                   Agenda da semana
                 </p>
@@ -113,10 +117,10 @@ export default async function BarberPage({ params }: PageProps) {
                   {barber.workingHours.map((day) => (
                     <li
                       key={day.weekday}
-                      className="flex items-center justify-between rounded-xl bg-white/[0.02] px-3 py-2 text-sm"
+                      className="flex items-center justify-between rounded-xl bg-tint px-3 py-2 text-sm"
                     >
-                      <span className="text-ink-400">{WEEKDAY_LABELS[day.weekday as Weekday]}</span>
-                      <span className={day.shifts.length ? 'text-ink-200' : 'text-ink-600'}>
+                      <span className="text-muted">{WEEKDAY_LABELS[day.weekday as Weekday]}</span>
+                      <span className={day.shifts.length ? 'text-content' : 'text-subtle'}>
                         {day.shifts.length
                           ? day.shifts.map((shift) => `${shift.start}–${shift.end}`).join(' · ')
                           : 'Folga'}
@@ -147,11 +151,11 @@ export default async function BarberPage({ params }: PageProps) {
         </Container>
       </Section>
 
-      <Section className="pt-4">
+      <Section spacing="continues">
         <Container>
-          <h2 className="mb-8 flex items-center gap-3 text-sm font-medium uppercase tracking-[0.22em] text-ink-500">
+          <h2 className="mb-8 flex items-center gap-3 text-sm font-medium uppercase tracking-[0.22em] text-muted">
             Serviços executados
-            <span className="h-px flex-1 bg-white/[0.06]" />
+            <span className="h-px flex-1 bg-tint-strong" />
           </h2>
           <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {services.map((service) => (

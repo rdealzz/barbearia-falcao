@@ -41,7 +41,7 @@ export default async function PlansPage() {
 
   return (
     <>
-      <Section className="pt-36 pb-10">
+      <Section spacing="pageTight">
         <Container>
           <SectionHeading
             align="center"
@@ -52,7 +52,7 @@ export default async function PlansPage() {
         </Container>
       </Section>
 
-      <Section className="py-10">
+      <Section spacing="tight">
         <Container>
           <Stagger className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {plans.map((plan) => (
@@ -75,11 +75,11 @@ export default async function PlansPage() {
             {faq.map((item) => (
               <StaggerItem key={item.question}>
                 <div className="surface-card h-full rounded-3xl p-6">
-                  <p className="flex items-start gap-3 font-medium text-white">
+                  <p className="flex items-start gap-3 font-medium text-content">
                     <HelpCircle className="mt-0.5 size-4 shrink-0 text-falcao-400" />
                     {item.question}
                   </p>
-                  <p className="mt-3 pl-7 text-sm leading-relaxed text-ink-400">{item.answer}</p>
+                  <p className="mt-3 pl-7 text-sm leading-relaxed text-muted">{item.answer}</p>
                 </div>
               </StaggerItem>
             ))}

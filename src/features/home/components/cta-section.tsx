@@ -11,7 +11,7 @@ export function CtaSection() {
     <section className="pb-24">
       <Container>
         <Reveal>
-          <div className="relative isolate overflow-hidden rounded-4xl border border-white/10 px-6 py-16 text-center sm:px-16 sm:py-24">
+          <div className="relative isolate overflow-hidden rounded-4xl border border-line px-6 py-16 text-center sm:px-16 sm:py-24">
             <MediaFrame
               src={media.shopWide}
               alt=""
@@ -19,12 +19,12 @@ export function CtaSection() {
               imageClassName="opacity-25"
               sizes="100vw"
             />
-            <div className="absolute inset-0 -z-10 bg-gradient-to-br from-ink-950 via-ink-950/85 to-falcao-950/60" />
+            <div className="absolute inset-0 -z-10 bg-gradient-to-br from-canvas via-canvas/90 to-falcao-600/15 dark:to-falcao-950/70" />
 
-            <h2 className="text-balance font-display text-3xl text-white sm:text-5xl">
+            <h2 className="text-balance font-display text-3xl text-content sm:text-5xl">
               Sua próxima cadeira já está esperando
             </h2>
-            <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-ink-300">
+            <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-muted">
               Escolha o serviço, o barbeiro e o horário. Em menos de um minuto seu lugar está
               garantido.
             </p>

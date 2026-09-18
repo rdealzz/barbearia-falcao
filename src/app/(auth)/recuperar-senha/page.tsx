@@ -19,7 +19,7 @@ export default function RecoveryPage() {
       footer={
         <Link
           href="/entrar"
-          className="font-medium text-falcao-300 transition-colors hover:text-falcao-200"
+          className="font-medium text-falcao-700 dark:text-falcao-300 transition-colors hover:text-falcao-700 dark:text-falcao-200"
         >
           Voltar para o login
         </Link>

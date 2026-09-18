@@ -3,12 +3,13 @@ import { barbershopJsonLd } from '@/lib/seo/structured-data';
 import {
   BarbersPreview,
   CtaSection,
+  GalleryPreview,
   Hero,
   LocationSection,
   PlansPreview,
   ProcessSection,
   ServicesPreview,
-  Testimonials,
+  Reputation,
   TrustStrip,
 } from '@/features/home/components';
 
@@ -35,9 +36,10 @@ export default async function HomePage() {
       <TrustStrip />
       <ServicesPreview services={featured.slice(0, 3)} />
       <ProcessSection />
+      <GalleryPreview />
       <BarbersPreview barbers={barbers} />
       <PlansPreview plans={highlightedPlans} />
-      <Testimonials />
+      <Reputation />
       <LocationSection />
       <CtaSection />
     </>

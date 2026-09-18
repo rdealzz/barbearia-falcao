@@ -12,16 +12,16 @@ const transitions: Record<
   Array<{ status: AppointmentStatus; label: string; icon: typeof PlayCircle; tone: string }>
 > = {
   pending: [
-    { status: 'confirmed', label: 'Confirmar', icon: CheckCircle2, tone: 'text-emerald-300' },
-    { status: 'cancelled', label: 'Cancelar', icon: XCircle, tone: 'text-falcao-300' },
+    { status: 'confirmed', label: 'Confirmar', icon: CheckCircle2, tone: 'text-emerald-700 dark:text-emerald-300' },
+    { status: 'cancelled', label: 'Cancelar', icon: XCircle, tone: 'text-falcao-700 dark:text-falcao-300' },
   ],
   confirmed: [
-    { status: 'in_progress', label: 'Iniciar', icon: PlayCircle, tone: 'text-falcao-200' },
-    { status: 'no_show', label: 'Não veio', icon: UserX, tone: 'text-ink-400' },
-    { status: 'cancelled', label: 'Cancelar', icon: XCircle, tone: 'text-falcao-300' },
+    { status: 'in_progress', label: 'Iniciar', icon: PlayCircle, tone: 'text-falcao-700 dark:text-falcao-200' },
+    { status: 'no_show', label: 'Não veio', icon: UserX, tone: 'text-muted' },
+    { status: 'cancelled', label: 'Cancelar', icon: XCircle, tone: 'text-falcao-700 dark:text-falcao-300' },
   ],
   in_progress: [
-    { status: 'completed', label: 'Finalizar', icon: CheckCircle2, tone: 'text-emerald-300' },
+    { status: 'completed', label: 'Finalizar', icon: CheckCircle2, tone: 'text-emerald-700 dark:text-emerald-300' },
   ],
   completed: [],
   cancelled: [],
@@ -53,7 +53,7 @@ export function StatusActions({
             type="submit"
             disabled={pending}
             className={cn(
-              'inline-flex items-center gap-1.5 rounded-full border border-white/10 px-3 py-1.5 text-xs transition-colors hover:border-white/25 hover:bg-white/[0.04] disabled:opacity-50',
+              'inline-flex items-center gap-1.5 rounded-full border border-line px-3 py-1.5 text-xs transition-colors hover:border-line-strong hover:bg-tint-strong disabled:opacity-50',
               option.tone,
             )}
           >
@@ -68,7 +68,7 @@ export function StatusActions({
       ))}
 
       {state.status === 'error' && state.message ? (
-        <p role="alert" className="text-xs text-falcao-300">
+        <p role="alert" className="text-xs text-falcao-700 dark:text-falcao-300">
           {state.message}
         </p>
       ) : null}

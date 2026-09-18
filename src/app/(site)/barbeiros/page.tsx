@@ -16,7 +16,7 @@ export default async function BarbersPage() {
   const barbers = await db.barbers.list();
 
   return (
-    <Section className="pt-36">
+    <Section spacing="page">
       <Container>
         <SectionHeading
           eyebrow="Equipe"

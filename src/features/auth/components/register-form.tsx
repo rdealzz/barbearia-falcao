@@ -79,11 +79,11 @@ export function RegisterForm({ redirectTo }: { redirectTo?: string }) {
         </Field>
       </div>
 
-      <label className="flex items-start gap-3 text-xs leading-relaxed text-ink-500">
+      <label className="flex items-start gap-3 text-xs leading-relaxed text-muted">
         <input
           type="checkbox"
           name="marketingOptIn"
-          className="mt-0.5 size-4 rounded border-white/20 bg-transparent accent-[oklch(0.51_0.2_27)]"
+          className="mt-0.5 size-4 rounded border-line-strong bg-transparent accent-[oklch(0.51_0.2_27)]"
         />
         Quero receber novidades, promoções e lembretes da Barbearia Falcão.
       </label>
@@ -91,7 +91,7 @@ export function RegisterForm({ redirectTo }: { redirectTo?: string }) {
       {state.status === 'error' && state.message ? (
         <p
           role="alert"
-          className="rounded-2xl border border-falcao-500/30 bg-falcao-950/40 px-4 py-3 text-sm text-falcao-200"
+          className="rounded-2xl border border-falcao-500/30 bg-falcao-600/10 dark:bg-falcao-950/40 px-4 py-3 text-sm text-falcao-700 dark:text-falcao-200"
         >
           {state.message}
         </p>

@@ -23,9 +23,9 @@ export function Avatar({ name, src, size = 'md', className, ring = false }: Avat
   return (
     <span
       className={cn(
-        'relative inline-flex shrink-0 items-center justify-center overflow-hidden rounded-full bg-ink-800 font-semibold text-ink-300 select-none',
+        'relative inline-flex shrink-0 items-center justify-center overflow-hidden rounded-full bg-tint-strong font-semibold text-muted select-none',
         sizes[size],
-        ring && 'ring-2 ring-falcao-600/40 ring-offset-2 ring-offset-ink-950',
+        ring && 'ring-2 ring-falcao-600/40 ring-offset-2 ring-offset-canvas',
         className,
       )}
     >

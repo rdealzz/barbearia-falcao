@@ -7,9 +7,9 @@ export default function NotFound() {
     <div className="grid min-h-dvh place-items-center px-6">
       <div className="text-center">
         <Logo className="mx-auto" />
-        <p className="mt-10 font-display text-7xl text-white/10">404</p>
-        <h1 className="mt-4 font-display text-3xl text-white">Página não encontrada</h1>
-        <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-ink-400">
+        <p className="mt-10 font-display text-7xl text-content/10">404</p>
+        <h1 className="mt-4 font-display text-3xl text-content">Página não encontrada</h1>
+        <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-muted">
           O endereço que você tentou acessar não existe ou foi movido. Que tal voltar para o
           início e marcar seu horário?
         </p>

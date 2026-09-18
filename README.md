@@ -55,14 +55,14 @@ mock (src/lib/data/mock)   |   prisma   |   supabase
 ```
 src/
 ├── app/                      Rotas (App Router)
-│   ├── (site)/               Site público: home, sobre, serviços, barbeiros, planos, contato, agendar
+│   ├── (site)/               Site público: home, sobre, serviços, cortes, barbeiros, planos, contato, agendar
 │   ├── (auth)/               Entrar, cadastrar, recuperar senha
 │   └── (app)/                Áreas logadas: /conta (cliente) e /painel (barbeiro)
 ├── components/
 │   ├── ui/                   Primitivas do design system (Button, Card, Input, Avatar…)
 │   ├── layout/               Header, footer e shell das áreas logadas
 │   └── shared/               Logo, animações, seções, ícones de marca, botão de WhatsApp
-├── features/                 Domínios: booking, barbers, services, plans, club, auth, account, staff, home
+├── features/                 Domínios: booking, barbers, services, plans, club, gallery, theme, auth, account, staff, home
 │   └── <feature>/            components/ + actions.ts + services de domínio
 ├── services/                 Contratos da camada de dados e resolução do provider
 ├── lib/
@@ -97,21 +97,44 @@ Sessão em cookie `httpOnly` assinado com HMAC-SHA256 (`src/lib/auth/session.ts`
 com `getCurrentUser`, `requireUser` e `requireRole` para proteger as rotas.
 A troca por Supabase Auth (ou Google/Apple) afeta apenas esse módulo.
 
+## Tema e identidade
+
+O site abre no **tema claro** e oferece alternância para o escuro no cabeçalho
+e nas áreas logadas. A preferência é gravada em `localStorage` e aplicada antes
+da primeira pintura (`src/features/theme/theme-script.tsx`), sem flash de troca.
+
+Todas as telas usam tokens semânticos (`bg-canvas`, `text-content`, `text-muted`,
+`border-line`, `bg-tint`…) definidos em `src/styles/globals.css`. Trocar uma cor
+de tema é editar um valor em um único arquivo — nenhuma tela tem cor fixa,
+exceto o vermelho e o creme da marca.
+
+A marca vive em `src/components/shared/logo-mark.tsx` (brasão vetorial: disco
+vermelho `#C1272D`, aros creme `#F2E4C9`, aro preto `#121212`, tipografia script
+e poste de barbeiro) e se repete no favicon (`public/icon.svg`). Para usar o
+arquivo oficial, salve-o em `public/` e aponte `brand.logoSrc` em
+`src/lib/data/media.ts` — ele substitui o brasão em todo o site de uma vez.
+
 ## Dados reais x dados de demonstração
 
 | Já reflete a barbearia | Precisa ser preenchido |
 | --- | --- |
-| Endereço (Rua Pedro Gusso, 281 — Novo Mundo) | Telefone, e-mail e WhatsApp oficiais |
-| Instagram `@barbeariia_falcao` | Fotos reais (equipe, estrutura, hero) |
-| Catálogo de planos e preços vigentes | Nomes, bios e fotos dos barbeiros |
-| Clube Falcão (cupons, regras e FAQ) | Logotipo oficial em vetor |
+| Endereço completo com CEP (R. Pedro Gusso, 281 — Novo Mundo, 81050-200) | E-mail oficial |
+| Telefone e WhatsApp (41) 99936-0911 | Horário de sábado e domingo |
+| Nota 4,9 e 397 avaliações no Google | Fotos reais (equipe, ambiente, cortes) |
+| Instagram `@barbeariia_falcao` e Facebook | Nomes, bios e fotos dos barbeiros |
+| Catálogo de planos e preços vigentes | Logotipo oficial em arquivo |
+| Clube Falcão (cupons, regras e FAQ) | |
+
+Nada de reputação é inventado: o site mostra apenas a nota pública do Google.
+Os barbeiros ficam com `rating`/`reviewsCount` zerados e a interface esconde o
+bloco de avaliação enquanto não houver dado real.
 
 Pontos de edição:
 
 - `src/lib/config/site.ts` — contato, horários, endereço e redes.
 - `src/lib/data/seed/` — serviços, barbeiros, planos, cupons e usuários.
-- `src/lib/data/media.ts` — todas as imagens do site em um único lugar.
-- `src/components/shared/logo.tsx` — marca (substituir pelo SVG oficial).
+- `src/lib/data/media.ts` — todas as imagens do site e a marca em um só lugar.
+- `public/galeria/` — fotos dos cortes exibidas em `/galeria` (veja o LEIA-ME de lá).
 
 Os barbeiros cadastrados são **fictícios**: nome, bio e especialidades devem ser
 trocados pelos profissionais reais antes do lançamento.

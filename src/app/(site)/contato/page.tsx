@@ -54,7 +54,7 @@ export default function ContactPage() {
 
   return (
     <>
-      <Section className="pt-36 pb-10">
+      <Section spacing="pageTight">
         <Container>
           <SectionHeading
             eyebrow="Contato"
@@ -64,21 +64,21 @@ export default function ContactPage() {
         </Container>
       </Section>
 
-      <Section className="py-10">
+      <Section spacing="tight">
         <Container>
           <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
             <Stagger className="space-y-4">
               {channels.map((channel) => {
                 const content = (
-                  <div className="surface-card flex items-start gap-4 rounded-2xl p-5 transition-colors duration-300 hover:border-white/20">
-                    <span className="grid size-10 shrink-0 place-items-center rounded-xl border border-white/[0.08] bg-white/[0.03] text-falcao-400">
+                  <div className="surface-card flex items-start gap-4 rounded-2xl p-5 transition-colors duration-300 hover:border-line-strong">
+                    <span className="grid size-10 shrink-0 place-items-center rounded-xl border border-line bg-tint text-falcao-400">
                       <channel.icon className="size-4" />
                     </span>
                     <div className="min-w-0">
-                      <p className="text-xs uppercase tracking-[0.18em] text-ink-600">
+                      <p className="text-xs uppercase tracking-[0.18em] text-subtle">
                         {channel.label}
                       </p>
-                      <p className="mt-1 break-words text-sm text-ink-200">{channel.value}</p>
+                      <p className="mt-1 break-words text-sm text-content">{channel.value}</p>
                     </div>
                   </div>
                 );
@@ -98,14 +98,14 @@ export default function ContactPage() {
 
               <StaggerItem>
                 <div className="surface-card rounded-2xl p-5">
-                  <p className="flex items-center gap-2 text-xs uppercase tracking-[0.18em] text-ink-600">
+                  <p className="flex items-center gap-2 text-xs uppercase tracking-[0.18em] text-subtle">
                     <Clock className="size-3.5" />
                     Horário de funcionamento
                   </p>
-                  <ul className="mt-3 space-y-1.5 text-sm text-ink-300">
+                  <ul className="mt-3 space-y-1.5 text-sm text-muted">
                     {openingHours.map((entry) => (
                       <li key={entry.label} className="flex justify-between gap-4">
-                        <span className="text-ink-500">{entry.label}</span>
+                        <span className="text-muted">{entry.label}</span>
                         <span>{entry.value}</span>
                       </li>
                     ))}
@@ -124,7 +124,7 @@ export default function ContactPage() {
             </Stagger>
 
             <Reveal delay={0.1}>
-              <div className="h-full overflow-hidden rounded-3xl border border-white/10">
+              <div className="h-full overflow-hidden rounded-3xl border border-line">
                 <iframe
                   src={mapsEmbed}
                   title="Mapa da Barbearia Falcão"

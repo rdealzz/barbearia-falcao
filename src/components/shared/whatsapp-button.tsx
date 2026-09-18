@@ -40,10 +40,10 @@ export function WhatsAppButton() {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 12, scale: 0.95 }}
                 transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-                className="glass w-64 rounded-2xl border border-white/10 p-4 shadow-2xl"
+                className="glass w-64 rounded-2xl border border-line p-4 shadow-2xl"
               >
-                <p className="text-sm font-medium text-white">Falar com a Falcão</p>
-                <p className="mt-1 text-xs leading-relaxed text-ink-400">
+                <p className="text-sm font-medium text-content">Falar com a Falcão</p>
+                <p className="mt-1 text-xs leading-relaxed text-muted">
                   {href
                     ? 'Tire dúvidas ou confirme seu horário direto no WhatsApp.'
                     : 'Canal em configuração. Por enquanto, agende pelo site — leva menos de um minuto.'}
@@ -52,7 +52,7 @@ export function WhatsAppButton() {
                   href={href ?? '/agendar'}
                   target={href ? '_blank' : undefined}
                   rel={href ? 'noreferrer' : undefined}
-                  className="mt-3 inline-flex h-9 w-full items-center justify-center rounded-full bg-[#25D366] text-sm font-medium text-ink-950 transition-transform hover:scale-[1.02]"
+                  className="mt-3 inline-flex h-9 w-full items-center justify-center rounded-full bg-[#25D366] text-sm font-medium text-[#0b1f12] transition-transform hover:scale-[1.02]"
                 >
                   {href ? 'Abrir conversa' : 'Agendar agora'}
                 </a>
@@ -65,7 +65,7 @@ export function WhatsAppButton() {
             onClick={() => setOpen((value) => !value)}
             aria-label={open ? 'Fechar contato' : 'Abrir contato pelo WhatsApp'}
             aria-expanded={open}
-            className="group relative flex size-14 items-center justify-center rounded-full bg-[#25D366] text-ink-950 shadow-[0_18px_40px_-12px_rgba(37,211,102,0.6)] transition-transform duration-300 hover:scale-105"
+            className="group relative flex size-14 items-center justify-center rounded-full bg-[#25D366] text-[#0b1f12] shadow-[0_18px_40px_-12px_rgba(37,211,102,0.6)] transition-transform duration-300 hover:scale-105"
           >
             <span className="absolute inset-0 animate-ping rounded-full bg-[#25D366]/30 [animation-duration:3s]" />
             {open ? <X className="size-6" /> : <MessageCircle className="size-6" />}

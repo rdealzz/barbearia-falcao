@@ -29,7 +29,7 @@ export function ProcessSection() {
   return (
     <Section className="relative overflow-hidden">
       <div
-        className="pointer-events-none absolute right-0 top-1/4 size-[28rem] rounded-full bg-falcao-800/10 blur-[120px]"
+        className="pointer-events-none absolute right-0 top-1/4 size-[28rem] rounded-full bg-falcao-500/10 blur-[120px] dark:bg-falcao-800/20"
         aria-hidden
       />
       <Container className="relative">
@@ -42,13 +42,13 @@ export function ProcessSection() {
         <Stagger className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {steps.map((step, index) => (
             <StaggerItem key={step.title} className="h-full">
-              <div className="surface-card group relative h-full rounded-3xl p-6 transition-colors duration-500 hover:border-white/20">
-                <span className="font-display text-5xl text-white/[0.06] transition-colors duration-500 group-hover:text-falcao-500/20">
+              <div className="surface-card group relative h-full rounded-3xl p-6 transition-colors duration-500 hover:border-line-strong">
+                <span className="font-display text-5xl text-content/10 transition-colors duration-500 group-hover:text-falcao-500/20">
                   {String(index + 1).padStart(2, '0')}
                 </span>
                 <step.icon className="mt-4 size-6 text-falcao-400" />
-                <h3 className="mt-4 font-display text-lg text-white">{step.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-ink-400">{step.description}</p>
+                <h3 className="mt-4 font-display text-lg text-content">{step.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted">{step.description}</p>
               </div>
             </StaggerItem>
           ))}

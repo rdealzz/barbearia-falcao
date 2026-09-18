@@ -47,7 +47,7 @@ export function LoginForm({ redirectTo }: { redirectTo?: string }) {
       <div className="flex justify-end">
         <Link
           href="/recuperar-senha"
-          className="text-xs text-ink-500 transition-colors hover:text-white"
+          className="text-xs text-muted transition-colors hover:text-content"
         >
           Esqueceu sua senha?
         </Link>
@@ -56,7 +56,7 @@ export function LoginForm({ redirectTo }: { redirectTo?: string }) {
       {state.status === 'error' && state.message ? (
         <p
           role="alert"
-          className="rounded-2xl border border-falcao-500/30 bg-falcao-950/40 px-4 py-3 text-sm text-falcao-200"
+          className="rounded-2xl border border-falcao-500/30 bg-falcao-600/10 dark:bg-falcao-950/40 px-4 py-3 text-sm text-falcao-700 dark:text-falcao-200"
         >
           {state.message}
         </p>

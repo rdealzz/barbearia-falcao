@@ -33,8 +33,8 @@ export default async function StaffTodayPage() {
   return (
     <div className="space-y-10">
       <header>
-        <p className="text-sm text-ink-500">{formatLongDate(today)}</p>
-        <h1 className="mt-1 font-display text-3xl text-white">Agenda do dia</h1>
+        <p className="text-sm text-muted">{formatLongDate(today)}</p>
+        <h1 className="mt-1 font-display text-3xl text-content">Agenda do dia</h1>
       </header>
 
       <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -59,7 +59,7 @@ export default async function StaffTodayPage() {
       </section>
 
       <section className="space-y-4">
-        <h2 className="font-display text-xl text-white">Clientes de hoje</h2>
+        <h2 className="font-display text-xl text-content">Clientes de hoje</h2>
 
         {appointments.length > 0 ? (
           <div className="grid gap-4">

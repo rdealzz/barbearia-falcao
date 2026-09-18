@@ -27,7 +27,7 @@ export function RecoveryForm() {
       </Field>
 
       {state.status === 'success' ? (
-        <p className="rounded-2xl border border-emerald-500/25 bg-emerald-500/[0.07] px-4 py-3 text-sm text-emerald-200">
+        <p className="rounded-2xl border border-emerald-500/25 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-700 dark:text-emerald-200">
           {state.message}
         </p>
       ) : null}

@@ -165,8 +165,8 @@ export function BookingWizard({
             >
               {step === 0 ? (
                 <section className="space-y-3" aria-label="Escolha o serviço">
-                  <h2 className="font-display text-2xl text-white">Qual serviço você quer?</h2>
-                  <p className="pb-3 text-sm text-ink-500">
+                  <h2 className="font-display text-2xl text-content">Qual serviço você quer?</h2>
+                  <p className="pb-3 text-sm text-muted">
                     O tempo de cada atendimento define os horários disponíveis na agenda.
                   </p>
                   {services.map((item) => (
@@ -187,16 +187,16 @@ export function BookingWizard({
                       title={item.name}
                       subtitle={item.shortDescription}
                       media={
-                        <span className="grid size-11 shrink-0 place-items-center rounded-xl border border-white/[0.08] bg-white/[0.03] text-falcao-400">
+                        <span className="grid size-11 shrink-0 place-items-center rounded-xl border border-line bg-tint text-falcao-400">
                           <Scissors className="size-4" />
                         </span>
                       }
                       meta={
                         <>
-                          <p className="font-display text-lg text-white">
+                          <p className="font-display text-lg text-content">
                             {formatCurrency(item.priceInCents)}
                           </p>
-                          <p className="text-xs text-ink-500">
+                          <p className="text-xs text-muted">
                             {formatDuration(item.durationInMinutes)}
                           </p>
                         </>
@@ -208,8 +208,8 @@ export function BookingWizard({
 
               {step === 1 ? (
                 <section className="space-y-3" aria-label="Escolha o barbeiro">
-                  <h2 className="font-display text-2xl text-white">Com quem você quer cortar?</h2>
-                  <p className="pb-3 text-sm text-ink-500">
+                  <h2 className="font-display text-2xl text-content">Com quem você quer cortar?</h2>
+                  <p className="pb-3 text-sm text-muted">
                     Cada barbeiro tem agenda própria — o horário fica reservado só com ele.
                   </p>
                   {eligibleBarbers.map((item) => (
@@ -234,8 +234,8 @@ export function BookingWizard({
               {step === 2 ? (
                 <section className="space-y-8" aria-label="Escolha data e horário">
                   <div>
-                    <h2 className="font-display text-2xl text-white">Quando fica bom para você?</h2>
-                    <p className="mt-1 text-sm text-ink-500">
+                    <h2 className="font-display text-2xl text-content">Quando fica bom para você?</h2>
+                    <p className="mt-1 text-sm text-muted">
                       A grade mostra apenas o que está livre na agenda de {barber?.name ?? 'cada barbeiro'}.
                     </p>
                   </div>
@@ -257,7 +257,7 @@ export function BookingWizard({
                       loading={loadingSlots || currentAvailability === null}
                     />
                   ) : (
-                    <p className="rounded-2xl border border-dashed border-white/10 px-4 py-8 text-center text-sm text-ink-500">
+                    <p className="rounded-2xl border border-dashed border-line px-4 py-8 text-center text-sm text-muted">
                       Escolha uma data para ver os horários disponíveis.
                     </p>
                   )}
@@ -267,19 +267,19 @@ export function BookingWizard({
               {step === 3 ? (
                 <section className="space-y-6" aria-label="Confirmação">
                   <div>
-                    <h2 className="font-display text-2xl text-white">Confirme seu agendamento</h2>
-                    <p className="mt-1 text-sm text-ink-500">
+                    <h2 className="font-display text-2xl text-content">Confirme seu agendamento</h2>
+                    <p className="mt-1 text-sm text-muted">
                       Revise os dados antes de fechar o horário.
                     </p>
                   </div>
 
                   {!user ? (
                     <div className="surface-card space-y-4 rounded-3xl p-6">
-                      <p className="flex items-center gap-2 font-medium text-white">
+                      <p className="flex items-center gap-2 font-medium text-content">
                         <LogIn className="size-4 text-falcao-400" />
                         Entre para finalizar
                       </p>
-                      <p className="text-sm leading-relaxed text-ink-400">
+                      <p className="text-sm leading-relaxed text-muted">
                         Sua escolha fica salva. Depois de entrar, você volta exatamente para esta
                         etapa.
                       </p>
@@ -307,7 +307,7 @@ export function BookingWizard({
                       </div>
 
                       <fieldset className="space-y-3">
-                        <legend className="mb-1 text-xs font-medium uppercase tracking-[0.12em] text-ink-500">
+                        <legend className="mb-1 text-xs font-medium uppercase tracking-[0.12em] text-muted">
                           Forma de pagamento
                         </legend>
                         {paymentOptions.map((option) => {
@@ -318,8 +318,8 @@ export function BookingWizard({
                               className={cn(
                                 'flex cursor-pointer items-center gap-4 rounded-2xl border p-4 transition-colors',
                                 paymentMethod === option.value
-                                  ? 'border-falcao-500/60 bg-falcao-950/30'
-                                  : 'border-white/[0.08] bg-white/[0.02] hover:border-white/20',
+                                  ? 'border-falcao-500/60 bg-falcao-600/8 dark:bg-falcao-950/30'
+                                  : 'border-line bg-tint hover:border-line-strong',
                                 disabled && 'cursor-not-allowed opacity-45',
                               )}
                             >
@@ -332,14 +332,14 @@ export function BookingWizard({
                                 onChange={() => setPaymentMethod(option.value)}
                                 className="sr-only"
                               />
-                              <span className="grid size-10 place-items-center rounded-xl border border-white/[0.08] bg-white/[0.03] text-falcao-400">
+                              <span className="grid size-10 place-items-center rounded-xl border border-line bg-tint text-falcao-400">
                                 <option.icon className="size-4" />
                               </span>
                               <span className="flex-1">
-                                <span className="block text-sm font-medium text-white">
+                                <span className="block text-sm font-medium text-content">
                                   {option.label}
                                 </span>
-                                <span className="block text-xs text-ink-500">{option.hint}</span>
+                                <span className="block text-xs text-muted">{option.hint}</span>
                               </span>
                             </label>
                           );
@@ -349,7 +349,7 @@ export function BookingWizard({
                       {error ? (
                         <p
                           role="alert"
-                          className="rounded-2xl border border-falcao-500/30 bg-falcao-950/40 px-4 py-3 text-sm text-falcao-200"
+                          className="rounded-2xl border border-falcao-500/30 bg-falcao-600/10 dark:bg-falcao-950/40 px-4 py-3 text-sm text-falcao-700 dark:text-falcao-200"
                         >
                           {error}
                         </p>
@@ -376,7 +376,7 @@ export function BookingWizard({
           </AnimatePresence>
         </div>
 
-        <div className="mt-8 flex items-center justify-between gap-4 border-t border-white/[0.06] pt-6">
+        <div className="mt-8 flex items-center justify-between gap-4 border-t border-line pt-6">
           <Button
             variant="ghost"
             onClick={() => goTo(Math.max(0, step - 1))}
@@ -396,7 +396,7 @@ export function BookingWizard({
       </div>
 
       <aside className="surface-card sticky top-28 rounded-3xl p-6">
-        <p className="text-xs font-medium uppercase tracking-[0.2em] text-ink-600">Resumo</p>
+        <p className="text-xs font-medium uppercase tracking-[0.2em] text-subtle">Resumo</p>
 
         <dl className="mt-5 space-y-4 text-sm">
           <SummaryRow label="Serviço" value={service?.name} />
@@ -412,23 +412,23 @@ export function BookingWizard({
           />
         </dl>
 
-        <div className="mt-6 flex items-end justify-between border-t border-white/[0.06] pt-5">
-          <span className="text-sm text-ink-500">Total</span>
-          <span className="font-display text-2xl text-white">
+        <div className="mt-6 flex items-end justify-between border-t border-line pt-5">
+          <span className="text-sm text-muted">Total</span>
+          <span className="font-display text-2xl text-content">
             {service ? formatCurrency(service.priceInCents) : '—'}
           </span>
         </div>
 
         {user ? (
-          <div className="mt-6 flex items-center gap-3 rounded-2xl bg-white/[0.03] p-3">
+          <div className="mt-6 flex items-center gap-3 rounded-2xl bg-tint p-3">
             <Avatar name={user.name} src={user.avatarUrl} size="sm" />
             <div className="min-w-0">
-              <p className="truncate text-sm text-white">{user.name}</p>
-              <p className="truncate text-xs text-ink-500">{user.email}</p>
+              <p className="truncate text-sm text-content">{user.name}</p>
+              <p className="truncate text-xs text-muted">{user.email}</p>
             </div>
           </div>
         ) : (
-          <p className="mt-6 flex items-start gap-2 text-xs leading-relaxed text-ink-500">
+          <p className="mt-6 flex items-start gap-2 text-xs leading-relaxed text-muted">
             <Clock className="mt-0.5 size-3.5 shrink-0" />O login é pedido apenas na última etapa.
           </p>
         )}
@@ -440,8 +440,8 @@ export function BookingWizard({
 function SummaryRow({ label, value }: { label: string; value?: string }) {
   return (
     <div className="flex items-start justify-between gap-4">
-      <dt className="text-ink-500">{label}</dt>
-      <dd className={cn('text-right', value ? 'text-ink-100' : 'text-ink-700')}>
+      <dt className="text-muted">{label}</dt>
+      <dd className={cn('text-right', value ? 'text-content' : 'text-subtle')}>
         {value ?? 'A definir'}
       </dd>
     </div>
@@ -459,12 +459,12 @@ function BookingSuccess({ code }: { code: string }) {
       <span className="mx-auto grid size-16 place-items-center rounded-full bg-emerald-500/10 text-emerald-400">
         <CheckCircle2 className="size-8" />
       </span>
-      <h2 className="mt-6 font-display text-3xl text-white">Horário confirmado</h2>
-      <p className="mt-3 text-sm leading-relaxed text-ink-400">
+      <h2 className="mt-6 font-display text-3xl text-content">Horário confirmado</h2>
+      <p className="mt-3 text-sm leading-relaxed text-muted">
         Seu agendamento está salvo e já aparece na agenda do barbeiro. Guarde o código abaixo
         para qualquer alteração.
       </p>
-      <p className="mt-6 inline-flex rounded-full border border-white/10 bg-white/[0.03] px-5 py-2 font-mono text-sm tracking-widest text-white">
+      <p className="mt-6 inline-flex rounded-full border border-line bg-tint px-5 py-2 font-mono text-sm tracking-widest text-content">
         {code}
       </p>
       <div className="mt-8 flex flex-col gap-3 sm:flex-row">

@@ -38,7 +38,7 @@ export function DatePicker({
   return (
     <div>
       <div className="mb-4 flex items-center justify-between">
-        <p className="text-sm text-ink-400">
+        <p className="text-sm text-muted">
           {parseDateString(dates[0] ?? today).toLocaleDateString('pt-BR', {
             month: 'long',
             year: 'numeric',
@@ -50,7 +50,7 @@ export function DatePicker({
             onClick={() => onOffsetChange(Math.max(0, offset - visibleDays))}
             disabled={!canGoBack}
             aria-label="Dias anteriores"
-            className="grid size-9 place-items-center rounded-full border border-white/10 text-ink-300 transition-colors hover:border-white/25 hover:text-white disabled:opacity-30"
+            className="grid size-9 place-items-center rounded-full border border-line text-muted transition-colors hover:border-line-strong hover:text-content disabled:opacity-30"
           >
             <ChevronLeft className="size-4" />
           </button>
@@ -59,7 +59,7 @@ export function DatePicker({
             onClick={() => onOffsetChange(offset + visibleDays)}
             disabled={!canGoForward}
             aria-label="Próximos dias"
-            className="grid size-9 place-items-center rounded-full border border-white/10 text-ink-300 transition-colors hover:border-white/25 hover:text-white disabled:opacity-30"
+            className="grid size-9 place-items-center rounded-full border border-line text-muted transition-colors hover:border-line-strong hover:text-content disabled:opacity-30"
           >
             <ChevronRight className="size-4" />
           </button>
@@ -84,8 +84,8 @@ export function DatePicker({
                 'flex flex-col items-center gap-1 rounded-2xl border py-3 transition-all duration-300',
                 selected
                   ? 'border-falcao-500/60 bg-falcao-600 text-white'
-                  : 'border-white/[0.08] bg-white/[0.02] text-ink-300 hover:border-white/20 hover:bg-white/[0.05]',
-                disabled && 'cursor-not-allowed opacity-30 hover:border-white/[0.08] hover:bg-white/[0.02]',
+                  : 'border-line bg-tint text-muted hover:border-line-strong hover:bg-tint-strong',
+                disabled && 'cursor-not-allowed opacity-30 hover:border-line-strong hover:bg-tint',
               )}
             >
               <span className="text-[10px] uppercase tracking-wider opacity-70">

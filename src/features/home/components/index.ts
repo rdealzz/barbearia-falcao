@@ -4,6 +4,7 @@ export * from './services-preview';
 export * from './barbers-preview';
 export * from './plans-preview';
 export * from './process-section';
-export * from './testimonials';
+export * from './reputation';
 export * from './location-section';
 export * from './cta-section';
+export * from './gallery-preview';

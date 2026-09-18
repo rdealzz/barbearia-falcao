@@ -21,7 +21,7 @@ export function ProfileForm({ user }: { user: User }) {
       <AvatarPicker name={user.name} defaultValue={user.avatarUrl} />
 
       <fieldset className="grid gap-5 sm:grid-cols-2">
-        <legend className="mb-4 text-xs font-medium uppercase tracking-[0.18em] text-ink-600">
+        <legend className="mb-4 text-xs font-medium uppercase tracking-[0.18em] text-subtle">
           Dados pessoais
         </legend>
 
@@ -61,7 +61,7 @@ export function ProfileForm({ user }: { user: User }) {
       </fieldset>
 
       <fieldset className="grid gap-5 sm:grid-cols-2">
-        <legend className="mb-4 text-xs font-medium uppercase tracking-[0.18em] text-ink-600">
+        <legend className="mb-4 text-xs font-medium uppercase tracking-[0.18em] text-subtle">
           Endereço
         </legend>
 
@@ -106,8 +106,8 @@ export function ProfileForm({ user }: { user: User }) {
           role="status"
           className={`rounded-2xl px-4 py-3 text-sm ${
             state.status === 'error'
-              ? 'border border-falcao-500/30 bg-falcao-950/40 text-falcao-200'
-              : 'border border-emerald-500/25 bg-emerald-500/[0.07] text-emerald-200'
+              ? 'border border-falcao-500/30 bg-falcao-600/10 dark:bg-falcao-950/40 text-falcao-700 dark:text-falcao-200'
+              : 'border border-emerald-500/25 bg-emerald-500/10 text-emerald-700 dark:text-emerald-200'
           }`}
         >
           {state.message}
@@ -141,7 +141,7 @@ export function PasswordForm() {
       {state.message ? (
         <p
           role="status"
-          className={`text-sm ${state.status === 'error' ? 'text-falcao-300' : 'text-emerald-300'}`}
+          className={`text-sm ${state.status === 'error' ? 'text-falcao-700 dark:text-falcao-300' : 'text-emerald-700 dark:text-emerald-300'}`}
         >
           {state.message}
         </p>

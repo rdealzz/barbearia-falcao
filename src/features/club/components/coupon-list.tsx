@@ -50,7 +50,7 @@ function CouponCard({ coupon, currentTier }: { coupon: ClubCoupon; currentTier: 
   return (
     <article className="surface-card flex flex-col gap-4 rounded-3xl p-6">
       <div className="flex items-start justify-between gap-3">
-        <span className="grid size-10 place-items-center rounded-2xl border border-white/[0.08] bg-white/[0.03] text-falcao-400">
+        <span className="grid size-10 place-items-center rounded-2xl border border-line bg-tint text-falcao-400">
           <Ticket className="size-4" />
         </span>
         <Badge variant={locked ? 'muted' : 'brand'}>
@@ -61,18 +61,18 @@ function CouponCard({ coupon, currentTier }: { coupon: ClubCoupon; currentTier: 
       </div>
 
       <div>
-        <h3 className="font-medium text-white">{coupon.title}</h3>
-        <p className="mt-1 text-sm leading-relaxed text-ink-400">{coupon.description}</p>
+        <h3 className="font-medium text-content">{coupon.title}</h3>
+        <p className="mt-1 text-sm leading-relaxed text-muted">{coupon.description}</p>
       </div>
 
-      <p className="text-xs text-ink-600">
+      <p className="text-xs text-subtle">
         Válido por {coupon.expiresInHours}h após o resgate · {coupon.usageLimit} uso
         {coupon.usageLimit > 1 ? 's' : ''}
       </p>
 
       <div className="mt-auto">
         {locked ? (
-          <p className="flex items-center gap-2 rounded-2xl bg-white/[0.03] px-4 py-3 text-xs text-ink-500">
+          <p className="flex items-center gap-2 rounded-2xl bg-tint px-4 py-3 text-xs text-muted">
             <Lock className="size-3.5" />
             Exclusivo para assinantes do plano {coupon.requiredTier?.toUpperCase()}
           </p>
@@ -80,7 +80,7 @@ function CouponCard({ coupon, currentTier }: { coupon: ClubCoupon; currentTier: 
           <button
             type="button"
             onClick={copy}
-            className="flex w-full items-center justify-between gap-3 rounded-2xl border border-dashed border-falcao-500/40 bg-falcao-950/30 px-4 py-3 text-sm text-falcao-100 transition-colors hover:border-falcao-500/70"
+            className="flex w-full items-center justify-between gap-3 rounded-2xl border border-dashed border-falcao-500/40 bg-falcao-600/8 dark:bg-falcao-950/30 px-4 py-3 text-sm text-falcao-800 dark:text-falcao-100 transition-colors hover:border-falcao-500/70"
           >
             <span className="font-mono tracking-widest">{code}</span>
             {copied ? <Check className="size-4" /> : <Copy className="size-4" />}
@@ -96,7 +96,7 @@ function CouponCard({ coupon, currentTier }: { coupon: ClubCoupon; currentTier: 
         )}
 
         {state.status === 'error' && state.message ? (
-          <p role="alert" className="mt-2 text-xs text-falcao-300">
+          <p role="alert" className="mt-2 text-xs text-falcao-700 dark:text-falcao-300">
             {state.message}
           </p>
         ) : null}

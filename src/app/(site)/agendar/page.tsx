@@ -29,7 +29,7 @@ export default async function BookingPage({ searchParams }: PageProps) {
   const initialBarber = barbeiro ? barbers.find((item) => item.slug === barbeiro) : undefined;
 
   return (
-    <Section className="pt-36">
+    <Section spacing="page">
       <Container>
         <SectionHeading
           eyebrow="Agendamento"

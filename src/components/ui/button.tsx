@@ -11,11 +11,11 @@ const buttonVariants = cva(
         primary:
           'bg-falcao-600 text-white shadow-[0_10px_30px_-12px_oklch(0.51_0.2_27/0.9)] hover:bg-falcao-500 hover:shadow-[0_16px_40px_-14px_oklch(0.575_0.215_27/0.95)]',
         light:
-          'bg-white text-ink-950 hover:bg-ink-100 shadow-[0_10px_30px_-16px_rgba(255,255,255,0.6)]',
+          'bg-inverse text-canvas hover:opacity-90 shadow-[var(--shadow-card)]',
         outline:
-          'border border-white/15 bg-white/[0.03] text-ink-100 hover:border-white/30 hover:bg-white/[0.07]',
-        ghost: 'text-ink-300 hover:bg-white/[0.06] hover:text-white',
-        danger: 'bg-falcao-700/20 text-falcao-200 hover:bg-falcao-700/30',
+          'border border-line-strong bg-surface text-content hover:border-falcao-500/50 hover:bg-tint',
+        ghost: 'text-muted hover:bg-tint hover:text-content',
+        danger: 'bg-falcao-600/10 text-falcao-600 hover:bg-falcao-600/20 dark:text-falcao-200',
       },
       size: {
         sm: 'h-9 px-4 text-sm',

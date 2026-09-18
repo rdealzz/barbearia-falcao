@@ -1,13 +1,14 @@
 interface ContactChannels {
   phone: string;
+  /** Formato internacional, usado nos links wa.me. */
   whatsapp: string;
   email: string;
 }
 
-/** Preenchido quando a barbearia confirmar os canais oficiais. */
 const contact: ContactChannels = {
-  phone: '',
-  whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '',
+  phone: '(41) 99936-0911',
+  whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '5541999360911',
+  // E-mail oficial ainda não divulgado publicamente pela barbearia.
   email: '',
 };
 
@@ -17,7 +18,8 @@ export const siteConfig = {
   legalName: 'Barbearia Falcão Cuts & Shave',
   foundedIn: 2018,
   tagline: 'Cuts & Shave',
-  slogan: 'Está na cara a diferença entre homens e meninos',
+  slogan: 'Está na cara quando o corte é bem feito',
+  sloganSupport: 'Corte, barba e cuidado para todas as idades — do primeiro corte ao de sempre.',
   description:
     'Barbearia premium em Curitiba. Cortes, barba e cuidados masculinos com hora marcada, barbeiros especialistas e planos de assinatura.',
   url: process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000',
@@ -30,16 +32,25 @@ export const siteConfig = {
     city: 'Curitiba',
     state: 'PR',
     country: 'BR',
-    zipCode: '' as string,
+    zipCode: '81050-200',
     mapsQuery: 'Barbearia Falcão, Rua Pedro Gusso 281, Novo Mundo, Curitiba - PR',
   },
   social: {
     instagram: 'https://www.instagram.com/barbeariia_falcao/',
     instagramHandle: '@barbeariia_falcao',
+    facebook: 'https://www.facebook.com/barbearia.falcao18/',
+    googleMaps: 'https://www.google.com/maps/search/?api=1&query=Barbearia+Falc%C3%A3o+Rua+Pedro+Gusso+281+Curitiba',
+  },
+  /** Avaliação pública do perfil no Google. */
+  reputation: {
+    rating: 4.9,
+    reviewsCount: 397,
+    source: 'Google',
   },
   openingHours: [
-    { label: 'Segunda a sexta', value: '09:00 — 20:00' },
-    { label: 'Sábado', value: '09:00 — 18:00' },
+    { label: 'Segunda a sexta', value: '08:30 — 20:30' },
+    // Sábado e domingo ainda não confirmados pela barbearia.
+    { label: 'Sábado', value: 'Sob consulta' },
     { label: 'Domingo', value: 'Fechado' },
   ],
 } as const;
@@ -51,6 +62,7 @@ export const navigation = {
     { label: 'Início', href: '/' },
     { label: 'Sobre', href: '/sobre' },
     { label: 'Serviços', href: '/servicos' },
+    { label: 'Cortes', href: '/galeria' },
     { label: 'Barbeiros', href: '/barbeiros' },
     { label: 'Planos', href: '/planos' },
     { label: 'Contato', href: '/contato' },
