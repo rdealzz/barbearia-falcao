@@ -188,13 +188,14 @@ O código já tem o formato certo para receber cada item abaixo:
 
 ## Banco de dados no Supabase
 
-O projeto do Supabase é **compartilhado com outra aplicação**, então a Barbearia
-Falcão tem um **schema dedicado** — `barbearia` — em vez de dividir a `public`.
-Isolamento total: tabelas, tipos e funções próprias, sem colidir com nada.
+A Barbearia Falcão tem **projeto próprio** no Supabase (`barbearia`), e dentro
+dele um **schema dedicado** — também `barbearia` — em vez da `public`. A `public`
+fica livre para extensões e integrações futuras, e o schema do app permanece
+autocontido: tabelas, tipos e funções próprias.
 
 ```
-projeto Supabase (compartilhado)
-├── public      → outra aplicação
+projeto Supabase "barbearia"
+├── public      → livre (extensões, integrações)
 └── barbearia   → esta aplicação
     ├── services, barbers, plans, club_coupons      (catálogo, leitura pública)
     ├── profiles                                    (clientes + equipe, com staff_role)
@@ -222,7 +223,7 @@ Decisões que valem registrar:
 
    ```bash
    DATA_PROVIDER="supabase"
-   SUPABASE_URL="https://kpkrndklpwuybadkpkdw.supabase.co"
+   SUPABASE_URL="https://xmfeeasrnbyujummqmxz.supabase.co"
    SUPABASE_SERVICE_ROLE_KEY="…"   # Settings → API → service_role (secreta)
    ```
 

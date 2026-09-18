@@ -1,10 +1,10 @@
 # Banco de dados — Barbearia Falcão
 
-O projeto do Supabase é compartilhado com outra aplicação. Para não dividir a
-`public`, todos os dados da Barbearia Falcão vivem no schema **`barbearia`**.
+Todos os dados da Barbearia Falcão vivem no schema **`barbearia`**, dentro do
+projeto próprio do Supabase — a `public` fica livre para extensões e integrações.
 
 As migrations em `migrations/` são a cópia versionada do que já está aplicado no
-projeto `kpkrndklpwuybadkpkdw`, na ordem dos nomes de arquivo.
+projeto `xmfeeasrnbyujummqmxz`, na ordem dos nomes de arquivo.
 
 | Migration | O que faz |
 | --- | --- |
